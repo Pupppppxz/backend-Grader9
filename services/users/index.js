@@ -5,6 +5,7 @@ const getUsersService = require('./getUsersService')
 const getUserService = require('./getUserService')
 const deleteUserService = require('./deleteUserService')
 const updatePasswordService = require('./updatePasswordService')
+const getScoreBoardService = require('./getScoreBoardService')
 
 module.exports = {
     loginService,
@@ -14,4 +15,5 @@ module.exports = {
     getUserService,
     deleteUserService,
     updatePasswordService,
+    getScoreBoardService,
 }

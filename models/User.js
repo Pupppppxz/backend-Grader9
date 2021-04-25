@@ -1,15 +1,10 @@
 const mongoose = require('mongoose')
+const bcrypt = require("bcrypt")
 
 const UserSchema = new mongoose.Schema({
   nickName: {
     type: String,
-    default: '',
     unique: true
-  },
-  email: {
-    type: String,
-    unique: true,
-    require: true
   },
   password: {
     type: String,
@@ -36,5 +31,6 @@ const UserSchema = new mongoose.Schema({
     default: Date.now
   }
 })
+
 const UserModel = mongoose.model("User", UserSchema)
 module.exports = UserModel

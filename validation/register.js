@@ -4,19 +4,12 @@ const isEmpty = require('is-empty')
 module.exports = function validatorRegister(data) {
     let err = {}
 
-    data.name = !isEmpty(data.name) ? data.name : ""
-    data.email = !isEmpty(data.email) ? data.email : ""
+    data.nickName = !isEmpty(data.nickName) ? data.nickName : ""
     data.password = !isEmpty(data.password) ? data.password : ""
     data.password2 = !isEmpty(data.password2) ? data.password2 : ""
 
-    if(Validator.isEmpty(data.name)){
+    if(Validator.isEmpty(data.nickName)){
         err.name = "Name field is required"
-    }
-
-    if(Validator.isEmpty(data.email)){
-        err.email = "Email field is required"
-    }else if (!Validator.isEmail(data.email)){
-        err.email = "Email is invalid"
     }
 
     if(Validator.isEmpty(data.password)){
