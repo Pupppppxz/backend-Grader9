@@ -18,7 +18,7 @@ const SubmitSchema = new mongoose.Schema({
         require: true
     },
 }, {
-    timestamps: { currentTime: () => Math.floor(Date.now() / 1000) }
+    timestamps: { currentTime: Date.now }
 })
 
 const SubmitModel = mongoose.model("Submit", SubmitSchema)
