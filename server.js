@@ -17,8 +17,8 @@ mongoose.connect(db,
     useCreateIndex: true,
     useFindAndModify: false
 })
-    .then(() => console.log('Success connect'))
-    .catch(err => console.log(err))
+.then(() => console.log('Success connect'))
+.catch(err => console.log(err))
 
 require('./config/passport')(passport)
 app.use(passport.initialize())
