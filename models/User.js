@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const bcrypt = require("bcrypt")
 
 const UserSchema = new mongoose.Schema({
   nickName: {
@@ -26,10 +25,12 @@ const UserSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
-  date: {
-    type: Date,
-    default: Date.now
-  }
+  // date: {
+  //   type: Date,
+  //   default: Date.now
+  // }
+}, {
+  timestamps: { currentTime: () => Math.floor(Date.now() / 1000) }
 })
 
 const UserModel = mongoose.model("User", UserSchema)

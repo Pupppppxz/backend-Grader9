@@ -13,14 +13,12 @@ const SubmitSchema = new mongoose.Schema({
         type: Number,
         require: true
     },
-    time: {
-        type: String,
-        require: true
-    },
     result: {
         type: String,
         require: true
-    }
+    },
+}, {
+    timestamps: { currentTime: () => Math.floor(Date.now() / 1000) }
 })
 
 const SubmitModel = mongoose.model("Submit", SubmitSchema)

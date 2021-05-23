@@ -28,7 +28,9 @@ const QuestionSchema = new mongoose.Schema({
     finished: {
         type: Number,
         default: 0
-    }
+    },
+}, {
+    timestamps: { currentTime: () => Math.floor(Date.now() / 1000) }
 })
 
 const QuestionModel = mongoose.model("question", QuestionSchema)
