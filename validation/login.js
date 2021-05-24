@@ -9,11 +9,9 @@ module.exports = function validatorLogin(data) {
 
     if(Validator.isEmpty(data.nickName)){
         err.nickName = "Nickname field is required"
-    } else if (!Validator.isnickName(data.nickName)){
-        err.nickName = "Nickname is invalid"
     }
 
-    if(Validator.isnickName(data.password)){
+    if(Validator.isEmpty(data.password)){
         err.password = "Password field is required"
     }
 

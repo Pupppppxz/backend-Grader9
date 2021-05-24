@@ -4,9 +4,9 @@ const userController = require('./controllers/users')
 const questionController = require('./controllers/questions')
 const submissionController = require('./controllers/submissions')
 const services = require('./services/users')
-
+//login
 router.post('/login', (req, res) => services.loginService(req, res))
-
+//register
 router.post('/register', (req, res) => services.registerService(req, res))
 // update user
 router.put('/user/:id', (req, res) => userController.updateUserController(req, res))
