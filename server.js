@@ -25,4 +25,4 @@ app.use(passport.initialize())
 
 app.use('/api', routes)
 const port = 5000;
-app.listen(port, () => console.log(`Server start at port ${port}`))
+app.listen(process.env.PORT || port, () => console.log(`Server start at port ${port}`))
