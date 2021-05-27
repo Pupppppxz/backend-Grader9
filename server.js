@@ -10,7 +10,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
 const db = require('./config/key').mongoURI
-mongoose.connect(db,
+mongoose.connect(mongodb+srv://admin:admin@cluster0.q0rvj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority,
 { 
     useNewUrlParser: true, 
     useUnifiedTopology: true,
@@ -25,4 +25,4 @@ app.use(passport.initialize())
 
 app.use('/api', routes)
 const port = 5000;
-app.listen(port, () => console.log(`Server start at port ${port}`))
+app.listen(process.env.PORT || port, () => console.log(`Server start at port ${port}`))
