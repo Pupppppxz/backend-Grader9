@@ -10,7 +10,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
 const db = require('./config/key').mongoURI
-mongoose.connect(db,
+mongoose.connect(mongodb+srv://admin:admin@cluster0.q0rvj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority,
 { 
     useNewUrlParser: true, 
     useUnifiedTopology: true,
