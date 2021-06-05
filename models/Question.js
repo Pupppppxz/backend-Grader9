@@ -13,11 +13,47 @@ const QuestionSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    scorePerCase: {
-        type: Number,
+    chaya: {
+        type: String,
+        require: true
+    },
+    unit: {
+        type: String,
         require: true
     },
     question: {
+        type: String,
+        require: true
+    },
+    detail: {
+        type: String,
+        require: true
+    },
+    linkPDF: {
+        type: String,
+        require: true
+    },
+    str_input_1: {
+        type: String,
+        require: true
+    },
+    str_output_1: {
+        type: String,
+        require: true
+    },
+    str_input_2: {
+        type: String,
+        require: true
+    },
+    str_output_2: {
+        type: String,
+        require: true
+    },
+    str_input_3: {
+        type: String,
+        require: true
+    },
+    str_output_3: {
         type: String,
         require: true
     },
@@ -25,9 +61,13 @@ const QuestionSchema = new mongoose.Schema({
         type: Number,
         require: true
     },
-    finished: {
+    number: {
         type: Number,
-        default: 0
+        require: true
+    },
+    finished: {
+        type: Boolean,
+        default: false
     },
 }, {
     timestamps: { currentTime: Date.now }

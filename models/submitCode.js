@@ -17,6 +17,8 @@ const SubmitCodeSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     }
+}, {
+    timestamps: { currentTime: Date.now }
 })
 
 const SubmitCodeModel = mongoose.model("SubmitCode", SubmitCodeSchema)

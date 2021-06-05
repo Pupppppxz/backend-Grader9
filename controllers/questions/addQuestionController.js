@@ -7,6 +7,6 @@ module.exports = async function addQuestionController(req, res) {
           error: 'req body cannot be empty',
         })
     }
-    await addQuestionService(req.body)
-    return res.sendStatus(200)
+    const add = await addQuestionService(req.body)
+    return res.send(add)
 }
