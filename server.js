@@ -8,6 +8,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
+app.use('/uploads', express.static('uploads'))
 
 // mongodb+srv://admin:admin@cluster0.q0rvj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 const db = require('./config/key').mongoURI

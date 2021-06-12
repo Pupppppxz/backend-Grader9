@@ -5,6 +5,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     unique: true
   },
+  username: {
+    type: String,
+    unique: true
+  },
   password: {
     type: String,
     require: true
@@ -24,7 +28,15 @@ const UserSchema = new mongoose.Schema({
   pass: {
     type: Number,
     default: 0
-  }
+  },
+  profilePicture: {
+    type: String,
+    default: null
+  },
+  userRank: {
+    type: Number,
+    default: 1
+  },
 }, {
   timestamps: { currentTime: Date.now }
 })

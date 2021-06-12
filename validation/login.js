@@ -4,11 +4,11 @@ const isEmpty = require("is-empty");
 module.exports = function validatorLogin(data) {
     let err = {}
 
-    data.nickName = !isEmpty(data.nickName) ? data.nickName : ""
+    data.username = !isEmpty(data.username) ? data.username : ""
     data.password = !isEmpty(data.password) ? data.password : ""
 
-    if(Validator.isEmpty(data.nickName)){
-        err.nickName = "Nickname field is required"
+    if(Validator.isEmpty(data.username)){
+        err.username = "Username field is required"
     }
 
     if(Validator.isEmpty(data.password)){

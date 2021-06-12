@@ -1,6 +1,6 @@
 const { createSubmissionService } = require('../../services/submissions')
 
-module.exports = async function createSubmissionController(){
+module.exports = async function createSubmissionController(req, res){
     await createSubmissionService(req.body)
-    return resizeBy.sendStatus(200)
+    return res.sendStatus(200)
 }

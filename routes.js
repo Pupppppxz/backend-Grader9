@@ -4,6 +4,7 @@ const userController = require('./controllers/users')
 const questionController = require('./controllers/questions')
 const submissionController = require('./controllers/submissions')
 const services = require('./services/users')
+const upload = require('./middleware/upload')
 //login
 router.post('/login', (req, res) => services.loginService(req, res))
 //register
@@ -16,6 +17,8 @@ router.put('/password/:id', (req, res) => userController.updatePasswordControlle
 router.get('/all-users', (req, res) => userController.getUsersController(req, res))
 //get user for edit => score, id, bla bla bla ~~ except password
 router.get('/user', (req, res) => userController.getUserController(req, res))
+//profile picture
+router.post('/profile-upload', upload, (req, res) => userController.ProfileUploadController(req, res))
 // get score board
 router.get('/score-board/:status', (req, res) => userController.getScoreBoardController(req, res))
 //delete user

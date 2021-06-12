@@ -6,17 +6,17 @@ const { UserModel } = require('../../models')
 
 module.exports = function loginUser(req, res) {
     const { err, isValid } = validatorLogin(req.body)
-    const nickName = req.body.nickName
+    const username = req.body.username
     const password = req.body.password
     
     if(!isValid){
         return res.status(400).json(err)
     }
 
-        UserModel.findOne({nickName})
+        UserModel.findOne({username})
         .then(user => {
             if(!user){
-                return res.status(400).json({nickNameNotFound: "nickName not found"})
+                return res.status(400).json({usernameNotFound: "Username not found"})
             }
 
             //check password
@@ -40,6 +40,7 @@ module.exports = function loginUser(req, res) {
                                 success: true,
                                 token: "Bearer " + token,
                                 status: user.userStatus,
+                                username: user.username,
                                 nickName: user.nickName,
                                 id: user._id
                             })
