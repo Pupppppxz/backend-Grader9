@@ -9,14 +9,14 @@ const SubmitSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    score: {
+    status: {
         type: Number,
         require: true
     },
     result: {
         type: String,
-        require: true
-    },
+        default: "---"
+    }
 }, {
     timestamps: { currentTime: Date.now }
 })

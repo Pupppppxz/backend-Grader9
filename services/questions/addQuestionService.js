@@ -1,13 +1,12 @@
-const { QuestionModel, UserModel, ActivityModel } = require('../../models')
+const { QuestionModel, UserModel, SubmitModel } = require('../../models')
 
 const pushItemToActiModel = async function(id, questionData) {
     const data = {
         userId: id,
         questionId: questionData.questionId,
-        number: questionData.number,
         status: questionData.status
     }
-    const newItem = await new ActivityModel(data)
+    const newItem = await new SubmitModel(data)
     return newItem.save()
 }
 
@@ -24,7 +23,6 @@ module.exports = async function addQuestionService(data) {
 
     const questionData = {
         questionId: question._id,
-        number: question.number,
         status: question.status
     }
 

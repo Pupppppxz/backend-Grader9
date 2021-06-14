@@ -19,8 +19,6 @@ router.get('/all-users', (req, res) => userController.getUsersController(req, re
 router.get('/user', (req, res) => userController.getUserController(req, res))
 //profile picture
 router.post('/profile-upload', upload, (req, res) => userController.profileUploadController(req, res))
-//update profile picture
-router.post('/profile-update', upload, (req, res) => userController.updateProfileController(req, res))
 // get score board
 router.get('/score-board/:status', (req, res) => userController.getScoreBoardController(req, res))
 //delete user
@@ -30,7 +28,7 @@ router.post('/add-question', (req, res) => questionController.addQuestionControl
 //update question
 router.put('/update-question/:id', (req, res) => questionController.editQuestionController(req, res))
 //get question nt id
-router.get('/question-id/:id', (req, res) => questionController.getQuestionByIdController(req, res))
+router.get('/question-id/:userId/:questionId', (req, res) => questionController.getQuestionByIdController(req, res))
 //get all question
 router.get('/all-questions', (req, res) => questionController.getQuestionController(req, res))
 //grader get question

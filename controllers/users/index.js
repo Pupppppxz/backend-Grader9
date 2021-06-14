@@ -5,7 +5,6 @@ const deleteUserController = require('./deleteUserController')
 const getScoreBoardController = require('./getScoreBoardController')
 const updatePasswordController = require('./updatePasswordController')
 const profileUploadController = require('./profileUploadController')
-const updateProfileController = require('./updateProfileController')
 
 module.exports = {
     updateUserController,
@@ -15,5 +14,4 @@ module.exports = {
     getScoreBoardController,
     updatePasswordController,
     profileUploadController,
-    updateProfileController
 }

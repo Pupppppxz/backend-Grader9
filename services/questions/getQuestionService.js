@@ -1,4 +1,4 @@
-const { QuestionModel, ActivityModel } = require('../../models')
+const { QuestionModel, SubmitModel } = require('../../models')
 
 const getQuestion = async function(){
     const question = await QuestionModel
@@ -7,25 +7,25 @@ const getQuestion = async function(){
     return question
 }
 
-const getActivity = async function(id){
-    const question = await ActivityModel
+const getSubmit = async function(id){
+    const question = await SubmitModel
                         .find({userId: id})
-                        .select(['number','status'])
+                        .select(['status','questionId'])
                         .sort({number: 'asc'})
     return question
 }
 
 module.exports = async function getQuestionService(userId){
     let question = [], 
-        activity = []
+        submit = []
     question = await getQuestion()
-    activity = await getActivity(userId)
+    submit = await getSubmit(userId)
     let item = []
     for(i = 0; i < question.length; i++) {
-        if(question[i].number === activity[i].number) {
+        if(question[i]._id === submit[i].questionId) {
             item[i] = {
                 _id: question[i]._id,
-                status: activity[i].status,
+                status: submit[i].status,
                 question: question[i].question,
                 rank: question[i].rank,
                 chaya: question[i].chaya,
@@ -38,10 +38,26 @@ module.exports = async function getQuestionService(userId){
                 str_input_3: question[i].str_input_3,
                 str_output_3: question[i].str_output_2,
                 number: question[i].number,
-                result: activity[i].result
+                result: submit[i].result
             }
         } else {
-            return {errorMessage: "Error to get questions"}
+            item[i] = {
+                _id: question[i]._id,
+                status: question[i].status,
+                question: question[i].question,
+                rank: question[i].rank,
+                chaya: question[i].chaya,
+                unit: question[i].unit,
+                detail: question[i].detail,
+                str_input_1: question[i].str_input_1,
+                str_output_1: question[i].str_output_2,
+                str_input_2: question[i].str_input_2,
+                str_output_2: question[i].str_output_2,
+                str_input_3: question[i].str_input_3,
+                str_output_3: question[i].str_output_2,
+                number: question[i].number,
+                result: "---"
+            }
         }
     }
     return item
