@@ -9,13 +9,14 @@ module.exports = function registerUser(req, res) {
         return res.status(400).json(err);
     }
 
-    UserModel.findOne({nickName: req.body.nickName})
+    UserModel.findOne({username: req.body.username})
     .then(user => {
         if (user) {
-            return res.status(400).json({ nickName: "Nickname already exists" })
+            return res.status(400).json({ username: "Username already exists" })
         } else {
             const newUser = new UserModel({
                 nickName: req.body.nickName,
+                username: req.body.username,
                 password: req.body.password,
             })
 

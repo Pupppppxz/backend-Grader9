@@ -31,12 +31,16 @@ const UserSchema = new mongoose.Schema({
   },
   profilePicture: {
     type: String,
-    default: null
+    default: "undefined"
   },
   userRank: {
     type: Number,
     default: 1
   },
+  commit: {
+    type: Number,
+    default: 0
+  }
 }, {
   timestamps: { currentTime: Date.now }
 })

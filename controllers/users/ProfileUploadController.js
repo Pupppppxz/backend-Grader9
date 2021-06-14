@@ -1,6 +1,6 @@
 const { profileUploadService } = require("../../services/users")
 
-module.exports = async function ProfileUploadController(req, res) {
+module.exports = async function profileUploadController(req, res) {
     if (!req.body) {
         return res.status(400).json({
           status: 'error',

@@ -18,7 +18,9 @@ router.get('/all-users', (req, res) => userController.getUsersController(req, re
 //get user for edit => score, id, bla bla bla ~~ except password
 router.get('/user', (req, res) => userController.getUserController(req, res))
 //profile picture
-router.post('/profile-upload', upload, (req, res) => userController.ProfileUploadController(req, res))
+router.post('/profile-upload', upload, (req, res) => userController.profileUploadController(req, res))
+//update profile picture
+router.post('/profile-update', upload, (req, res) => userController.updateProfileController(req, res))
 // get score board
 router.get('/score-board/:status', (req, res) => userController.getScoreBoardController(req, res))
 //delete user
