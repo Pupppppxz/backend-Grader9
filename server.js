@@ -3,6 +3,7 @@ const mongoose = require("mongoose")
 const passport = require("passport")
 const routes = require('./routes')
 const cors = require('cors')
+const { mongoURI, GRADER_USER } = require('./config/key')
 const app = express()
 
 app.use(cors())
@@ -20,6 +21,12 @@ mongoose.connect(db,
 })
 .then(() => console.log('Success connect'))
 .catch(err => console.log(err))
+// mongoose.Promise = global.Promise
+// mongoose.connect(`${mongoURI}`,{
+//     "auth": {"authSource":"admin"},
+//     "user": GRADER_USER,
+//     "pass":
+// })
 
 require('./config/passport')(passport)
 app.use(passport.initialize())
