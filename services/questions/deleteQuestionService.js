@@ -17,9 +17,8 @@ const deleteSubmitCode = async function(id) {
 }
 
 module.exports = async function deleteQuestionService(id) {
-    let ID = mongoose.Types.ObjectId(id)
-    await deleteQuestion(ID)
-    await deleteSubmit(ID)
-    await deleteSubmitCode(ID)
+    await deleteQuestion(id)
+    await deleteSubmit(id)
+    await deleteSubmitCode(id)
     return {Success: "deleted!"}
 }
