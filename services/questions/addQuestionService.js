@@ -38,6 +38,5 @@ module.exports = async function addQuestionService(data) {
     // userCount.map((user) => {
     //     pushTosubmitModel(user._id, questionData)
     // })
-    // const result = await getQuestionId(question.number)
-    return {id: question._id}
+    return question._id
 }
