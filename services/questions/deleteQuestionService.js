@@ -1,4 +1,5 @@
 const { QuestionModel, SubmitModel, SubmitCodeModel } = require('../../models')
+const mongoose = require('mongoose')
 
 const deleteQuestion = async function(id){
     const deleteQuestion = await QuestionModel.findByIdAndDelete(id)
@@ -16,8 +17,9 @@ const deleteSubmitCode = async function(id) {
 }
 
 module.exports = async function deleteQuestionService(id) {
-    await deleteQuestion(id)
-    await deleteSubmit(id)
-    await deleteSubmitCode(id)
+    let ID = mongoose.Types.ObjectId(id)
+    await deleteQuestion(ID)
+    await deleteSubmit(ID)
+    await deleteSubmitCode(ID)
     return {Success: "deleted!"}
 }
