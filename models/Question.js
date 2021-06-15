@@ -5,6 +5,14 @@ const QuestionSchema = new mongoose.Schema({
         type: String,
         require: true
     },
+    input: {
+        type: String,
+        require: true
+    },
+    output: {
+        type: String,
+        require: true
+    },
     chaya: {
         type: String,
         require: true
@@ -60,6 +68,14 @@ const QuestionSchema = new mongoose.Schema({
     status: {
         type: Number,
         default: 0
+    },
+    q_input: {
+        type: String,
+        require: true
+    },
+    q_output: {
+        type: String,
+        require: true
     }
 }, {
     timestamps: { currentTime: Date.now }
