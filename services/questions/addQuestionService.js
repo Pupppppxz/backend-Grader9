@@ -17,12 +17,12 @@ const { QuestionModel, UserModel, SubmitModel } = require('../../models')
 //     return allUser
 // }
 
-const getQuestionId = async function(number) {
-    const id = QuestionModel
-                .findOne({number: number})
-                .select(['_id'])
-    return id._id
-}
+// const getQuestionId = async function(number) {
+//     const id = QuestionModel
+//                 .findOne({number: number})
+//                 .select(['_id'])
+//     return id._id
+// }
 
 module.exports = async function addQuestionService(data) {
     const question = await new QuestionModel(data)
@@ -38,6 +38,6 @@ module.exports = async function addQuestionService(data) {
     // userCount.map((user) => {
     //     pushTosubmitModel(user._id, questionData)
     // })
-    const result = await getQuestionId(question.number)
-    return {id: result}
+    // const result = await getQuestionId(question.number)
+    return {id: question._id}
 }
