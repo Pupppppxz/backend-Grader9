@@ -25,7 +25,7 @@ const { QuestionModel, UserModel, SubmitModel } = require('../../models')
 // }
 
 module.exports = async function addQuestionService(data) {
-    const question = await new QuestionModel(data)
+    const question = new QuestionModel(data)
     question.save()
 
     // const questionData = {
