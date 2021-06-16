@@ -5,7 +5,6 @@ const updateQuestionService = require('./updateQuestionService')
 const graderGetQuestionService = require('./graderGetQuestionService')
 const deleteQuestionService = require('./deleteQuestionService')
 const getScoreByQuestionService = require('./getScoreByQuestionService')
-const getFinishCode = require('./getFinishCode')
 
 module.exports = {
     addQuestionService,
@@ -15,5 +14,4 @@ module.exports = {
     graderGetQuestionService,
     deleteQuestionService,
     getScoreByQuestionService,
-    getFinishCode
 }

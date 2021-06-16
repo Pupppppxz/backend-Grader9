@@ -13,9 +13,9 @@ const SubmitCodeSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    finished: {
-        type: Boolean,
-        default: false
+    status: {
+        type: Number,
+        require: true
     }
 }, {
     timestamps: { currentTime: Date.now }

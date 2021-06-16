@@ -37,7 +37,7 @@ module.exports = async function getQuestionByIdService(questionId, userId) {
             result: submit[0].result
         }
     } else {
-        item[i] = {
+        item[0] = {
             _id: question[0]._id,
             status: question[0].status,
             question: question[0].question,

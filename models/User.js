@@ -40,6 +40,10 @@ const UserSchema = new mongoose.Schema({
   commit: {
     type: Number,
     default: 0
+  },
+  finished: {
+    type: Number,
+    default: 0
   }
 }, {
   timestamps: { currentTime: Date.now }

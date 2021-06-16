@@ -1,8 +1,8 @@
 const { UserModel } = require("../../models")
 
-module.exports = async function addScoreToUserService(uId, uScore) {
-    const user = await UserModel.find({_id: uId})
-    newScore = user.score + uScore
+module.exports = async function addScoreToUserService(uId, scoreFromGrader) {
+    const user = await UserModel.findOne({_id: uId}).select(['score'])
+    const newScore = Number(user.score) + Number(scoreFromGrader)
     const addScore = await UserModel.findOneAndUpdate({_id: uId}, {score: newScore})
     return addScore
 }

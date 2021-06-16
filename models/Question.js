@@ -76,6 +76,10 @@ const QuestionSchema = new mongoose.Schema({
     q_output: {
         type: String,
         require: true
+    },
+    finished: {
+        type: Number,
+        default: 0
     }
 }, {
     timestamps: { currentTime: Date.now }

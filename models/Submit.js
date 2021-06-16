@@ -16,6 +16,10 @@ const SubmitSchema = new mongoose.Schema({
     result: {
         type: String,
         default: "---"
+    },
+    score: {
+        type: Number,
+        require: true
     }
 }, {
     timestamps: { currentTime: Date.now }

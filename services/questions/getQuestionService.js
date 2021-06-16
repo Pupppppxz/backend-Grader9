@@ -38,7 +38,8 @@ module.exports = async function getQuestionService(userId){
                 str_input_3: question[i].str_input_3,
                 str_output_3: question[i].str_output_2,
                 number: question[i].number,
-                result: submit[i].result
+                result: submit[i].result,
+                finished: question[i].finished
             }
         } else {
             item[i] = {
@@ -56,7 +57,8 @@ module.exports = async function getQuestionService(userId){
                 str_input_3: question[i].str_input_3,
                 str_output_3: question[i].str_output_2,
                 number: question[i].number,
-                result: "---"
+                result: "---",
+                finished: question[i].finished
             }
         }
     }

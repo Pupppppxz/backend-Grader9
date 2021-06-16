@@ -1,12 +1,12 @@
-const { SubmitModel } = require('../../models')
-
-module.exports = async function getScoreByQuestionService(uId, qId) {
-    const submissions = await SubmitModel.find({userId: uId, questionId: qid})
+module.exports = async function getScoreByQuestionService(result, rank) {
+    const totalPassedArr = result.split("")
+    const totalPassed = totalPassedArr.filter((item) => item === "p" || "P")
+    const total = totalPassed.lenght
+    console.log("total passed = " + total);
     let max = 0
-    submissions.map((score) => {
-        if(max < score) {
-            max = score
-        }
-    })
-    return max
+    if((total.length * rank) === max) {
+        return max
+    } else {
+        return (total.length * rank)
+    }
 }
