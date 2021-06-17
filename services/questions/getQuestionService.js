@@ -2,7 +2,7 @@ const { QuestionModel, SubmitModel } = require('../../models')
 
 const getQuestion = async function(){
     const question = await QuestionModel
-                        .find()
+                        .find({})
                         .sort({number: 'asc'})
     return question
 }
@@ -10,22 +10,23 @@ const getQuestion = async function(){
 const getSubmit = async function(id){
     const question = await SubmitModel
                         .find({userId: id})
-                        .select(['status','questionId'])
+                        .select(['status','questionId','result'])
                         .sort({number: 'asc'})
     return question
 }
 
 module.exports = async function getQuestionService(userId){
-    let question = [], 
-        submit = []
-    question = await getQuestion()
-    submit = await getSubmit(userId)
+    const question = await getQuestion()
+    console.log(question);
+    const submit = await getSubmit(userId)
+    console.log(submit);
     let item = []
+    let count = 0
     for(i = 0; i < question.length; i++) {
-        if(question[i]._id === submit[i].questionId) {
-            item[i] = {
+        if(submit[count].questionId === question[i]._id.toString()) {
+            let items = {
                 _id: question[i]._id,
-                status: submit[i].status,
+                status: submit[count].status,
                 question: question[i].question,
                 rank: question[i].rank,
                 chaya: question[i].chaya,
@@ -38,11 +39,13 @@ module.exports = async function getQuestionService(userId){
                 str_input_3: question[i].str_input_3,
                 str_output_3: question[i].str_output_2,
                 number: question[i].number,
-                result: submit[i].result,
+                result: submit[count].result,
                 finished: question[i].finished
             }
+            item.push(items)
+            count = count + 1
         } else {
-            item[i] = {
+            let items = {
                 _id: question[i]._id,
                 status: question[i].status,
                 question: question[i].question,
@@ -57,10 +60,11 @@ module.exports = async function getQuestionService(userId){
                 str_input_3: question[i].str_input_3,
                 str_output_3: question[i].str_output_2,
                 number: question[i].number,
-                result: "---",
+                result: "----",
                 finished: question[i].finished
             }
+            item.push(items)
         }
     }
-    return item
+    return item;
 }
