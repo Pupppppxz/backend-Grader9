@@ -2,7 +2,8 @@ const { SubmitCodeModel, SubmitModel } = require('../../models')
 const { 
     updateUserScoreService, 
     getScoreByQuestionService,
-    addFinishedSubmissionService
+    addFinishedSubmissionService,
+    addSuccessSubmissionService
 } = require('.')
 
 const oldSubmission = async function(userId, questionId) {
@@ -16,16 +17,22 @@ module.exports = async function updateSubmissionService(uId, qId, code, result, 
         await SubmitCodeModel.findOneAndUpdate({userId: uId, questionId: qId}, {code: code})
         const totalScore = await getScoreByQuestionService(result, rank)
         await updateUserScoreService(uId, totalScore, oldSubmit.score, "equal")
-    } else if(oldSubmit.status < status) {
+    } else if(oldSubmit.status < status && status !== 2) {
         await SubmitCodeModel.findOneAndUpdate({userId: uId, questionId: qId}, {code: code, status: status})
         const totalScore = await getScoreByQuestionService(result, rank)
         await updateUserScoreService(uId, totalScore, oldSubmit.score, "plus")
+    } else if(oldSubmit.status < status && status === 2) {
+        await SubmitCodeModel.findOneAndUpdate({userId: uId, questionId: qId}, {code: code, status: status})
+        const totalScore = await getScoreByQuestionService(result, rank)
+        await updateUserScoreService(uId, totalScore, oldSubmit.score, "plus")
+        await addSuccessSubmissionService(questionId, 1)
     } else if (oldSubmit.status > status && oldSubmit.status === 2) {
         await addFinishedSubmissionService(uId, -1)
+        await addSuccessSubmissionService(questionId, -1)
         await SubmitCodeModel.findOneAndUpdate({userId: uId, questionId: qId}, {code: code, status: status})
         const totalScore = await getScoreByQuestionService(result, rank)
         await updateUserScoreService(uId, totalScore, oldSubmit.score, "minus")
-    } else {
+    } else if(oldSubmit.status > status && oldSubmit.status !== 2) {
         await SubmitCodeModel.findOneAndUpdate({userId: uId, questionId: qId}, {code: code, status: status})
         const totalScore = await getScoreByQuestionService(result, rank)
         await updateUserScoreService(uId, totalScore, oldSubmit.score, "minus")
