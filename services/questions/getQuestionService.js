@@ -43,6 +43,8 @@ module.exports = async function getQuestionService(userId){
                 str_output_2: question[i].str_output_2,
                 str_input_3: question[i].str_input_3,
                 str_output_3: question[i].str_output_2,
+                q_input: question[i].q_input,
+                q_output: question[i].q_output,
                 number: question[i].number,
                 result: "----",
                 finished: question[i].finished
@@ -65,6 +67,8 @@ module.exports = async function getQuestionService(userId){
                     str_output_2: question[i].str_output_2,
                     str_input_3: question[i].str_input_3,
                     str_output_3: question[i].str_output_2,
+                    q_input: question[i].q_input,
+                    q_output: question[i].q_output,
                     number: question[i].number,
                     result: submit[count].result,
                     finished: question[i].finished
@@ -87,6 +91,8 @@ module.exports = async function getQuestionService(userId){
                     str_output_2: question[i].str_output_2,
                     str_input_3: question[i].str_input_3,
                     str_output_3: question[i].str_output_2,
+                    q_input: question[i].q_input,
+                    q_output: question[i].q_output,
                     number: question[i].number,
                     result: "----",
                     finished: question[i].finished

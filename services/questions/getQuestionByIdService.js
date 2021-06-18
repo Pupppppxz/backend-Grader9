@@ -32,6 +32,8 @@ module.exports = async function getQuestionByIdService(userId, questionId) {
             str_output_2: question.str_output_2,
             str_input_3: question.str_input_3,
             str_output_3: question.str_output_2,
+            q_input: question.q_input,
+            q_output: question.q_output,
             number: question.number,
             result: submit.result, 
             finished: question.finished
@@ -53,6 +55,8 @@ module.exports = async function getQuestionByIdService(userId, questionId) {
             str_output_2: question.str_output_2,
             str_input_3: question.str_input_3,
             str_output_3: question.str_output_2,
+            q_input: question.q_input,
+            q_output: question.q_output,
             number: question.number,
             result: "---",
             finished: question.finished
