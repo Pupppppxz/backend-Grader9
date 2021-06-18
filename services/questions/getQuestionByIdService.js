@@ -18,7 +18,8 @@ module.exports = async function getQuestionByIdService(userId, questionId) {
     let item = []
     if(submit) {
         let items = {
-            _id: question._id,
+            _id: question._id, 
+            title: question[i].title, 
             status: submit.status,
             question: question.question,
             rank: question.rank,
@@ -39,6 +40,7 @@ module.exports = async function getQuestionByIdService(userId, questionId) {
     } else {
         let items = {
             _id: question._id,
+            title: question[i].title, 
             status: question.status,
             question: question.question,
             rank: question.rank,
