@@ -30,6 +30,7 @@ module.exports = async function getQuestionService(userId){
         if(submit === 0){
             let items = {
                 _id: question[i]._id,
+                title: question[i].title
                 status: question[i].status,
                 question: question[i].question,
                 rank: question[i].rank,
@@ -51,6 +52,7 @@ module.exports = async function getQuestionService(userId){
             if(submit[count].questionId === question[i]._id.toString()) {
                 let items = {
                     _id: question[i]._id,
+                    title: question[i].title
                     status: submit[count].status,
                     question: question[i].question,
                     rank: question[i].rank,
@@ -72,6 +74,7 @@ module.exports = async function getQuestionService(userId){
             } else {
                 let items = {
                     _id: question[i]._id,
+                    title: question[i].title
                     status: question[i].status,
                     question: question[i].question,
                     rank: question[i].rank,
