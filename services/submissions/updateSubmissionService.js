@@ -37,9 +37,4 @@ module.exports = async function updateSubmissionService(uId, qId, code, result, 
         const totalScore = await getScoreByQuestionService(result, rank)
         await updateUserScoreService(uId, totalScore, oldSubmit.score, "minus")
     }
-    // if(finished) {
-    //     await SubmitCodeModel.findOneAndUpdate({userId: uId, questionId: qId}, finished)
-    // } else {
-    //     await SubmitCodeModel.findOneAndUpdate({userId: uId, questionId: qId}, code)
-    // }
 }

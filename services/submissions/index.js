@@ -7,11 +7,10 @@ const insertSubmissionCodeService = require('./insertSubmissionCodeService')
 const insertSubmissionService = require('./insertSubmissionService')
 const addSuccessSubmissionService = require('./addSuccessSubmissionService')
 const addScoreToUserService = require('./addScoreToUserService')
-const lookupSubmissionService = require('./lookupSubmissionService')
-const getSubmissionService = require('./getSubmissionService')
 const createSubmissionService = require('./createSubmissionService')
 const updateUserScoreService = require('./updateUserScoreService')
 const addFinishedSubmissionService = require('./addFinishedSubmissionService')
+const getSubmissionService = require('./getSubmissionService')
 
 module.exports = {
     checkSubmissionExistService,
@@ -23,9 +22,8 @@ module.exports = {
     insertSubmissionService,
     addSuccessSubmissionService,
     addScoreToUserService,
-    lookupSubmissionService,
-    getSubmissionService,
     createSubmissionService,
     updateUserScoreService,
-    addFinishedSubmissionService
+    addFinishedSubmissionService,
+    getSubmissionService
 }

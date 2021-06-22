@@ -19,6 +19,8 @@ router.get('/all-users', (req, res) => userController.getUsersController(req, re
 router.get('/user', (req, res) => userController.getUserController(req, res))
 //profile picture
 router.post('/profile-upload', upload, (req, res) => userController.profileUploadController(req, res))
+//update group
+router.put('/update-group', (req, res) => userController.updateGroupController(req, res))
 // get score board
 router.get('/score-board/:status', (req, res) => userController.getScoreBoardController(req, res))
 //delete user
@@ -40,10 +42,12 @@ router.get('/sub-code', (req, res) => submissionController.getSubmissionCodeCont
 
 router.get('/finish-sub', (req, res) => submissionController.getFinishSubmissionCodeController(req, res))
 
-router.post('/fetch-sub', (req, res) => submissionController.fetchSubmissionController(req, res))
+router.get('/submission', (req, res) => submissionController.getSubmissionController(req, res))
 
-router.post('/create-sub', (req, res) => submissionController.createSubmissionController(req, res))
+router.post('/submit', (req, res) => submissionController.fetchSubmissionController(req, res))
 
-router.post('/submission', (req, res) => submissionController.getSubmissionController(req, res))
+// router.post('/create-sub', (req, res) => submissionController.createSubmissionController(req, res))
+
+// router.post('/submission', (req, res) => submissionController.getSubmissionController(req, res))
 
 module.exports = router

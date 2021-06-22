@@ -12,28 +12,28 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use('/uploads', express.static('uploads'))
 
-const db = require('./config/key').mongoURI
-mongoose.connect(db,
-{ 
-    useNewUrlParser: true, 
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false
-})
-.then(() => console.log('Success connect'))
-.catch(err => console.log(err))
-// mongoose.Promise = global.Promise
-// mongoose.connect(process.env.MONGO_URL,{
-//     "auth": {"authSource":"admin"},
-//     "user": String(process.env.MONGO_USER),
-//     "pass": process.env.MONGO_PASS,
+// const db = require('./config/key').mongoURI
+// mongoose.connect(db,
+// { 
 //     useNewUrlParser: true, 
 //     useUnifiedTopology: true,
 //     useCreateIndex: true,
 //     useFindAndModify: false
-// }).then(() => {
-//     console.log(`Mongo connected to database`)
-// }).catch(err => console.log(err))
+// })
+// .then(() => console.log('Success connect'))
+// .catch(err => console.log(err))
+mongoose.Promise = global.Promise
+mongoose.connect(process.env.MONGO_URL,{
+    "auth": {"authSource":"admin"},
+    "user": String(process.env.MONGO_USER),
+    "pass": process.env.MONGO_PASS,
+    useNewUrlParser: true, 
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+}).then(() => {
+    console.log(`Mongo connected to database`)
+}).catch(err => console.log(err))
 
 require('./config/passport')(passport)
 app.use(passport.initialize())

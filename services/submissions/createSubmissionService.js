@@ -17,20 +17,6 @@ module.exports = async function createSubmissionService(userId, questionId, stat
             await addFinishedSubmissionService(userId, 1)
         }
         await insertSubmissionService(userId, questionId, status, result, totalScore)
-        // let before = await getScoreByQuestionService(userId, questionId)
-        // let after = await getScoreByQuestionService(userId, questionId)
-        // const diff = before - after
-        // const { input, scorePerCase } = getQuestionByIdService(questionId)
-        // const maxScore = input.split('$.$').length * scorePerCase
-        // if(maxScore === after && diff != 0) {
-        //     await addSuccessSubmissionService(questionId)
-        // }
-        // if (diff > 0) {
-        //     await addScoreToUserService(userId, diff)
-        // }
-        // if(score === maxScore) {
-        //     await updateSubmissionCodeService(userId, questionId, {code: ''}, {finished: true})
-        // }
     } catch (error) {
         console.log(error)
     }
