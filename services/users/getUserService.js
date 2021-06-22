@@ -34,10 +34,11 @@ module.exports = async function getUserService(id) {
         hash: getUser.hash,
         score: getUser.score,
         finished: getUser.finished,
-        profile: getUser.profile,
+        profilePicture: getUser.profilePicture,
         userRank: ranking,
         commit: getUser.commit,
-        progress: progress
+        progress: progress,
+        group: getUser.group
     }
     return user
 }
