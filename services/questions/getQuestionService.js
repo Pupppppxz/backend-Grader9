@@ -19,9 +19,15 @@ const getSubmit = async function(id){
     }
 }
 
-// const compareitem = function(a, b) {
-
-// }
+const compareItem = function(a, b) {
+    if(a.rank < b.rank){
+        return -1
+    }
+    if(a.rank > b.rank){
+        return 1
+    }
+    return 0
+}
 
 module.exports = async function getQuestionService(userId){
     const question = await getQuestion()
@@ -106,5 +112,6 @@ module.exports = async function getQuestionService(userId){
             } 
         }
     }
+    item.sort( compareItem )
     return item
 }
