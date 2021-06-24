@@ -4,9 +4,9 @@ module.exports = async function getScoreByQuestionService(result, rank) {
     const total = totalPassed.lenght
     console.log("total passed = " + total);
     let max = 0
-    if((total.length * rank) === max) {
+    if((total.length * rank * 10) === max) {
         return max
     } else {
-        return (total.length * rank)
+        return (total.length * rank * 10)
     }
 }

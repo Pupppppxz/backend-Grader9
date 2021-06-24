@@ -34,6 +34,7 @@ module.exports = async function getQuestionService(userId){
                 status: question[i].status,
                 question: question[i].question,
                 rank: question[i].rank,
+                linkPDF: question[i].linkPDF,
                 chaya: question[i].chaya,
                 unit: question[i].unit,
                 detail: question[i].detail,
@@ -58,6 +59,7 @@ module.exports = async function getQuestionService(userId){
                     status: submit[count].status,
                     question: question[i].question,
                     rank: question[i].rank,
+                    linkPDF: question[i].linkPDF,
                     chaya: question[i].chaya,
                     unit: question[i].unit,
                     detail: question[i].detail,
@@ -82,6 +84,7 @@ module.exports = async function getQuestionService(userId){
                     status: question[i].status,
                     question: question[i].question,
                     rank: question[i].rank,
+                    linkPDF: question[i].linkPDF,
                     chaya: question[i].chaya,
                     unit: question[i].unit,
                     detail: question[i].detail,
@@ -101,5 +104,5 @@ module.exports = async function getQuestionService(userId){
             } 
         }
     }
-    return item;
+    return item.sort({rank: 'asc'})
 }
