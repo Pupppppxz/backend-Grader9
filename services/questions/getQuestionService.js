@@ -21,9 +21,7 @@ const getSubmit = async function(id){
 
 module.exports = async function getQuestionService(userId){
     const question = await getQuestion()
-    // console.log(question);
     const submit = await getSubmit(userId)
-    console.log(submit);
     let item = []
     let count = 0
     for(i = 0; i < question.length; i++) {
