@@ -6,21 +6,15 @@ const getUserRankings = async function(id) {
             .find({userStatus: "user"})
             .select(['score','_id'])
             .sort({score: 'desc'})
-    let ranking
-    for (let i = 0; i < allUsers.length; i++) {
-        if(allUsers[i]._id === id) {
-            ranking = i + 1
-            break
-        }
-    }
-    return ranking
+    let ranking = allUsers.findIndex(allUser => String(allUser._id) === id)
+    return ranking + 1
 }
 
 getProgression = async function(passed) {
     const allquestions = await QuestionModel.find({})
     const questionLength = allquestions.length
     const progress = Number(passed) / Number(questionLength)
-    return progress.toFixed(2)
+    return progress.toFixed(4) * 100
 }
 
 module.exports = async function getUserService(id) {
