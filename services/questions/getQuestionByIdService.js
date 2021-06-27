@@ -9,14 +9,18 @@ const getSubmit = async function(id, qId){
     const question = await SubmitModel
                         .findOne({userId: id, questionId: qId})
                         .select(['status','questionId','result'])
-    return question
+    if(typeof question !== null && typeof question !== undefined){
+        return 0
+    } else {
+        return question
+    }
 }
 
 module.exports = async function getQuestionByIdService(userId, questionId) {
     const question = await getQuestion(questionId)
     const submit = await getSubmit(userId, questionId)
     let item = []
-    if(submit) {
+    if(submit !== 0) {
         let items = {
             _id: question._id, 
             title: question.title, 
