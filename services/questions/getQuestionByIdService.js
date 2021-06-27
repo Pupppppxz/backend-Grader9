@@ -19,11 +19,14 @@ const getSubmit = async function(id, qId){
 module.exports = async function getQuestionByIdService(userId, questionId) {
     const question = await getQuestion(questionId)
     const submit = await getSubmit(userId, questionId)
+    const input = question.input.split("$.$")
+    const testCase = "-"
     let item = []
     if(submit !== 0) {
         let items = {
             _id: question._id, 
             title: question.title, 
+            input: question.input, 
             status: submit.status,
             question: question.question,
             rank: question.rank,
@@ -48,6 +51,7 @@ module.exports = async function getQuestionByIdService(userId, questionId) {
         let items = {
             _id: question._id,
             title: question.title, 
+            input: question.input, 
             status: question.status,
             question: question.question,
             rank: question.rank,
@@ -64,7 +68,7 @@ module.exports = async function getQuestionByIdService(userId, questionId) {
             q_input: question.q_input,
             q_output: question.q_output,
             number: question.number,
-            result: "---",
+            result: testCase.repeat(input.length),
             finished: question.finished
         }
         item.push(items)
