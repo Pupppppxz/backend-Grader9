@@ -21,12 +21,13 @@ module.exports = async function getQuestionByIdService(userId, questionId) {
     const submit = await getSubmit(userId, questionId)
     const input = question.input.split("$.$")
     const testCase = "-"
-    let item = []
+    let item
     if(submit !== 0) {
-        let items = {
+        item = {
             _id: question._id, 
             title: question.title, 
             input: question.input, 
+            output: question.output, 
             status: submit.status,
             question: question.question,
             rank: question.rank,
@@ -46,12 +47,12 @@ module.exports = async function getQuestionByIdService(userId, questionId) {
             result: submit.result, 
             finished: question.finished
         }
-        item.push(items)
     } else {
-        let items = {
+        item = {
             _id: question._id,
             title: question.title, 
-            input: question.input, 
+            input: question.input,
+            output: question.output,  
             status: question.status,
             question: question.question,
             rank: question.rank,
@@ -71,7 +72,6 @@ module.exports = async function getQuestionByIdService(userId, questionId) {
             result: testCase.repeat(input.length),
             finished: question.finished
         }
-        item.push(items)
     }
     return item
 }
