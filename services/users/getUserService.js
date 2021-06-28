@@ -1,4 +1,4 @@
-const {UserModel, QuestionModel} = require('../../models')
+const {UserModel, QuestionModel, SubmitModel} = require('../../models')
 
 const getUserRankings = async function(id) {
     let allUsers = []
@@ -10,15 +10,25 @@ const getUserRankings = async function(id) {
     return ranking + 1
 }
 
-getProgression = async function(passed) {
-    const allquestions = await QuestionModel.find({})
-    const questionLength = allquestions.length
+const getProgression = async function(passed) {
+    const allQuestions = await QuestionModel.find({})
+    const questionLength = allQuestions.length
     const progress = Number(passed) / Number(questionLength)
     return progress.toFixed(4) * 100
 }
 
+const checkExist = async function(userId) {
+    const check = await SubmitModel.findOne({userId: userId})
+    if(check === null) {
+        return false
+    }
+    return true
+}
+
 module.exports = async function getUserService(id) {
+    const exist = await checkExist(id)
     const ranking = await getUserRankings(id)
+    const check = (exist === true ? ranking : "ไม่มีอันดับ")
     const getUser = await UserModel.findOne({_id: id})
     const progress = await getProgression(getUser.finished)
     const user = {
@@ -29,7 +39,7 @@ module.exports = async function getUserService(id) {
         score: getUser.score,
         finished: getUser.finished,
         profilePicture: getUser.profilePicture,
-        userRank: ranking,
+        userRank: check,
         commit: getUser.commit,
         progress: progress,
         group: getUser.group
