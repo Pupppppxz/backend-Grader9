@@ -30,9 +30,9 @@ module.exports = async function fetchSubmissionService(code, userId, questionId)
     const checkExist = await checkSubmissionExistService(userId, questionId)
     try {
         if(checkExist) {
-            await updateSubmissionService(userId, questionId, code, resJson.result, resJson.status, question.rank)
+            await updateSubmissionService(userId, questionId, code, resJson.result, resJson.status, 1)
         } else {
-            await createSubmissionService(userId, questionId, resJson.status, resJson.result, question.rank)
+            await createSubmissionService(userId, questionId, resJson.status, resJson.result, 1)
             await insertSubmissionCodeService(userId, questionId, code, resJson.status)
         }
     } catch (err) {
