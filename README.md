@@ -1,17 +1,13 @@
 # **CE-Boostup9 Grader - Backend**
 ## **Endpoints**
  - `auth`
-    - **@POST** `/sign-up`
-    - **@POST** `/sign-up/verify`
-    - **@POST** `/sign-in`
-    - **@POST** `/change-password`
-    - **@PATCH** `/change-password/verify`
-    - **@POST** `/verify-email`
- - ***RequiredAuth*** `user`
-    - **@GET** `/profile`
-    - **@PATCH** `/profile`
-    - **@GET** `/profile/product-id`
-    - **@PUT** `/profile/product-id`
+    - **@POST** `/register`
+    - **@POST** `/login`
+ - ***AboutUser*** `user`
+    - **@PUT** `/user/:id`
+    - **@GET** `/user`
+    - **@GET** `/all-user`
+    - **@PUT** `/profile-upload`
  - ***RequiredAuth*** `temperature`
     - **@GET** `/`
     - **@GET** `/:deviceID`
