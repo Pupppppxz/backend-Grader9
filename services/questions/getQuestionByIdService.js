@@ -25,9 +25,7 @@ module.exports = async function getQuestionByIdService(userId, questionId) {
     if(submit !== 0) {
         items = {
             _id: question._id, 
-            title: question.title, 
-            input: question.input, 
-            output: question.output, 
+            title: question.title,  
             status: submit.status,
             question: question.question,
             rank: question.rank,
@@ -52,8 +50,6 @@ module.exports = async function getQuestionByIdService(userId, questionId) {
         items = {
             _id: question._id,
             title: question.title, 
-            input: question.input,
-            output: question.output,  
             status: question.status,
             question: question.question,
             rank: question.rank,

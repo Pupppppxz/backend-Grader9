@@ -14,7 +14,8 @@ const getProgression = async function(passed) {
     const allQuestions = await QuestionModel.find({})
     const questionLength = allQuestions.length
     const progress = Number(passed) / Number(questionLength)
-    return progress.toFixed(4) * 100
+    const realProgress = progress.toFixed(4) * 100
+    return realProgress
 }
 
 const checkExist = async function(userId) {

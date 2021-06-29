@@ -39,5 +39,5 @@ require('./config/passport')(passport)
 app.use(passport.initialize())
 
 app.use('/api', routes)
-port = 5000
-app.listen(process.env.PORT || 5000, () => console.log(`Server start at port ${port}`))
+const port = 5000
+app.listen(process.env.PORT || port, () => console.log(`Server start at port ${port}`))
