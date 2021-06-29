@@ -9,7 +9,7 @@ const getSubmit = async function(id, qId){
     const question = await SubmitModel
                         .findOne({userId: id, questionId: qId})
                         .select(['status','questionId','result'])
-    if(typeof question !== null && typeof question !== undefined){
+    if(question === null || question === undefined){
         return 0
     } else {
         return question
@@ -21,9 +21,9 @@ module.exports = async function getQuestionByIdService(userId, questionId) {
     const submit = await getSubmit(userId, questionId)
     const input = question.input.split("$.$")
     const testCase = "-"
-    let item
+    let item = []
     if(submit !== 0) {
-        item = {
+        items = {
             _id: question._id, 
             title: question.title, 
             input: question.input, 
@@ -47,8 +47,9 @@ module.exports = async function getQuestionByIdService(userId, questionId) {
             result: submit.result, 
             finished: question.finished
         }
+        item.push(items)
     } else {
-        item = {
+        items = {
             _id: question._id,
             title: question.title, 
             input: question.input,
@@ -72,6 +73,7 @@ module.exports = async function getQuestionByIdService(userId, questionId) {
             result: testCase.repeat(input.length),
             finished: question.finished
         }
+        item.push(items)
     }
     return item
 }
