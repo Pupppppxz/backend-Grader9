@@ -3,16 +3,25 @@
  - `auth`
     - **@POST** `/register`
     - **@POST** `/login`
- - ***AboutUser*** `user`
+ - `about users`
     - **@PUT** `/user/:id`
     - **@GET** `/user`
     - **@GET** `/all-user`
     - **@PUT** `/profile-upload`
- - ***RequiredAuth*** `temperature`
-    - **@GET** `/`
-    - **@GET** `/:deviceID`
-    - **@GET** `/time`
-    - ***Guard(Private)*** **@POST**  `/update`
+    - **@PUT** `/update-group`
+    - **@DELETE** `/del-user`
+    - **@GET** `/score-board/user`
+ - `questions`
+    - **@POST** `/add-question`
+    - **@PUT** `/update-question/:id`
+    - **@GET** `/question-id/:userId/:questionId`
+    - **@GET** `/all-qusetions`
+    - **@DELETE** `/del-question/:id`
+ - `submission`
+    - **@POST** `/submit`
+    - **@GET** `/sub-code`
+    - **@GET** `/finish-sub`
+    - **@GET** `/submission`
 
 ------------------------------
 ## **Auth**
