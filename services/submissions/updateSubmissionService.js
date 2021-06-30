@@ -7,6 +7,7 @@ const getScoreFromSubmissionService = require('./getScoreFromSubmissionService')
 
 const oldSubmission = async function(userId, questionId) {
     const bermberm = await SubmitModel.findOne({ userId: userId, questionId: questionId}).select(['status','score'])
+    console.log(bermberm);
     return bermberm
 }
 
