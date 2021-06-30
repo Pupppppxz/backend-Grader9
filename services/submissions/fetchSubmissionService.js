@@ -44,7 +44,7 @@ module.exports = async function fetchSubmissionService(data){
                 await updateSubmissionService(userId, questionId, code, result, status, totalScore, oldSubmit.score, oldSubmit.status)
             } else if (checkExist === false) {
                 console.log("S2");
-                await createSubmissionService(userId, questionId, status, result, totalScore)
+                await createSubmissionService(userId, questionId, status, result, totalScore, number)
                 await insertSubmissionCodeService(userId, questionId, code, status)
             }
         }

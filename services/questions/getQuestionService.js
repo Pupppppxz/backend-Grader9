@@ -32,13 +32,12 @@ const compareItem = function(a, b) {
 module.exports = async function getQuestionService(userId){
     const question = await getQuestion()
     const submit = await getSubmit(userId)
-    console.log(submit);
     let item = []
     let count = 0
     for(i = 0; i < question.length; i++) {
-        if(submit > 0){
+        if(submit.length > 0){
             if(count <= submit.length) {
-                if(submit[count].questionId === question[i]._id.toString()) {
+                if(submit[count].questionId === String(question[i]._id)) {
                     let items = {
                         _id: question[i]._id,
                         title: question[i].title, 
@@ -63,6 +62,7 @@ module.exports = async function getQuestionService(userId){
                     }
                     item.push(items)
                     count = count + 1
+                    console.log("hhh", i);
                 } else {
                     let items = {
                         _id: question[i]._id,

@@ -8,7 +8,7 @@ const check = function(result) {
     if(result.includes("B") === true) return 2
 }
 
-module.exports = async function createSubmissionService(userId, questionId, status, result, totalScore){
+module.exports = async function createSubmissionService(userId, questionId, status, result, totalScore, number){
     let checked = check(result)
     try {
         if(checked === 1) {
@@ -17,7 +17,7 @@ module.exports = async function createSubmissionService(userId, questionId, stat
                 await addSuccessSubmissionService(questionId, "plus")
                 await addFinishedSubmissionService(userId, "plus")
             }
-            await insertSubmissionService(userId, questionId, status, result, totalScore)
+            await insertSubmissionService(userId, questionId, status, result, totalScore, number)
         } else if(checked === 2) {
             await insertSubmissionService(userId, questionId, status, result, 0)
         }
