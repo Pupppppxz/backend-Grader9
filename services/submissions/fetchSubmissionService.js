@@ -8,6 +8,7 @@ const insertSubmissionCodeService = require('./insertSubmissionCodeService')
 const createSubmissionService = require('./createSubmissionService')
 const updateUserCommitService = require('./updateUserCommitService')
 const getOldSubmission = require('./getOldSubmission')
+const {getScoreByQuestionService} = require('../questions')
 dotenv.config()
 
 module.exports = async function fetchSubmissionService(data){
@@ -25,31 +26,33 @@ module.exports = async function fetchSubmissionService(data){
     const status = data.status
     const rank = data.rank 
     const oldSubmit = await getOldSubmission(userId, questionId)
+    console.log(oldSubmit);
     const checkExist = await checkSubmissionExistService(userId, questionId)
+    const totalScore = await getScoreByQuestionService(result, rank)
     try {
         if(result !== "B") {
             const checkResult = result.split("")
             if(checkExist === true && checkResult[0] !== "T") {
                 console.log("1");
-                await updateSubmissionService(userId, questionId, code, result, status, rank, oldSubmit.score, oldSubmit.status)
+                await updateSubmissionService(userId, questionId, code, result, status, totalScore, oldSubmit.score, oldSubmit.status)
             } else if (checkExist === false && checkResult[0] !== "T") {
                 console.log("2");
-                await createSubmissionService(userId, questionId, status, result, rank)
+                await createSubmissionService(userId, questionId, status, result, totalScore)
                 await insertSubmissionCodeService(userId, questionId, code, status)
             } else if (checkExist === true && checkResult[0] === "T") {
                 console.log("3");
-                await updateSubmissionService(userId, questionId, code, checkResult[0], status, rank, oldSubmit.score, oldSubmit.status)
+                await updateSubmissionService(userId, questionId, code, checkResult[0], status, totalScore, oldSubmit.score, oldSubmit.status)
             } else if (checkExist === false && checkResult[0] === "T") {
                 console.log("4");
-                await createSubmissionService(userId, questionId, status, checkResult[0], rank)
+                await createSubmissionService(userId, questionId, status, checkResult[0], totalScore)
                 await insertSubmissionCodeService(userId, questionId, code, checkResult[0])
             }
         } else if(checkExist === true && result === "B") {
             // console.log("5");
-            await updateSubmissionService(userId, questionId, code, result, status, rank, oldSubmit.score, oldSubmit.status)
+            await updateSubmissionService(userId, questionId, code, result, status, totalScore, oldSubmit.score, oldSubmit.status)
         } else if(checkExist === false && result === "B") {
             // console.log("6");
-            await createSubmissionService(userId, questionId, status, result, rank)
+            await createSubmissionService(userId, questionId, status, result, totalScore)
             await insertSubmissionCodeService(userId, questionId, code, status)
         }
     } catch (err) {

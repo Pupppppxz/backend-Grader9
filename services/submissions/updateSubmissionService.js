@@ -1,6 +1,5 @@
 const { SubmitCodeModel, SubmitModel } = require('../../models')
 const updateUserScoreService = require('./updateUserScoreService')
-const {getScoreByQuestionService} = require('../questions')
 const addFinishedSubmissionService = require('./addFinishedSubmissionService')
 const addSuccessSubmissionService = require('./addSuccessSubmissionService')
 
@@ -14,8 +13,7 @@ const updateSubmit = async function(userId, questionId, result, status, score) {
     return update
 }
 
-module.exports = async function updateSubmissionService(userId, questionId, code, result, status, rank, oldScore, oldStatus) {
-    const totalScore = await getScoreByQuestionService(result, rank)
+module.exports = async function updateSubmissionService(userId, questionId, code, result, status, totalScore, oldScore, oldStatus) {
     try {
         if(result !== "B" && result !== "T") {
             if(oldStatus === status) {
