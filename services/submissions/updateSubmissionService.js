@@ -3,11 +3,9 @@ const updateUserScoreService = require('./updateUserScoreService')
 const {getScoreByQuestionService} = require('../questions')
 const addFinishedSubmissionService = require('./addFinishedSubmissionService')
 const addSuccessSubmissionService = require('./addSuccessSubmissionService')
-const getScoreFromSubmissionService = require('./getScoreFromSubmissionService')
 
 const oldSubmission = async function(userId, questionId) {
-    const bermberm = await SubmitModel.findOne({ userId: userId, questionId: questionId}).select(['status','score'])
-    console.log(bermberm);
+    const bermberm = await SubmitModel.findOne({ userId: userId, questionId: questionId})
     return bermberm
 }
 
@@ -23,6 +21,7 @@ const updateSubmit = async function(userId, questionId, result, status, score) {
 
 module.exports = async function updateSubmissionService(userId, questionId, code, result, status, rank) {
     const oldSubmit = await oldSubmission(userId, questionId)
+    console.log(oldSubmit);
     const totalScore = await getScoreByQuestionService(result, rank)
     try {
         if(result !== "B" && result !== "T") {
