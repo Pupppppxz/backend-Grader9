@@ -18,7 +18,7 @@ module.exports = async function fetchSubmissionService(data){
             return res.status(400).json({InvalidUserError: "Can not found user"})
         }
     })
-    console.log(data);
+    console.log("data : " + data);
     const result = data.result
     const questionId = data.questionId
     const userId = data.userId
@@ -26,7 +26,7 @@ module.exports = async function fetchSubmissionService(data){
     const status = data.status
     const rank = data.rank 
     const oldSubmit = await getOldSubmission(userId, questionId)
-    console.log(oldSubmit);
+    console.log("oldSubmit : " + oldSubmit);
     const checkExist = await checkSubmissionExistService(userId, questionId)
     const totalScore = await getScoreByQuestionService(result, rank)
     try {

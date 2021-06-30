@@ -2,7 +2,6 @@ const addScoreToUserService = require('./addScoreToUserService')
 const insertSubmissionService = require('./insertSubmissionService')
 const addFinishedSubmissionService = require('./addFinishedSubmissionService')
 const addSuccessSubmissionService = require('./addSuccessSubmissionService')
-const { getScoreByQuestionService } = require("../questions")
 
 module.exports = async function createSubmissionService(userId, questionId, status, result, totalScore){
 
