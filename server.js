@@ -2,7 +2,7 @@ var cluster = require('cluster')
 
 if(cluster.isMaster) {
     var cpuCount = require('os').cpus().length
-    for(var i = 0; i < cpuCount - 2; i++){
+    for(var i = 0; i < cpuCount; i++){
         cluster.fork()
     }
     cluster.on( 'online', function( worker ) {
