@@ -35,10 +35,11 @@ module.exports = async function fetchSubmissionService(data){
         const oldSubmit = await getOldSubmission(userId, questionId)
         const checkExist = await checkSubmissionExistService(userId, questionId)
         const totalScore = await getScoreByQuestionService(result, rank)
-        console.log(oldSubmit);
+        
         if(result !== "B") {
             const checkResult = result.split("")
             if(checkExist === true && checkResult[0] !== "T") {
+                console.log(oldSubmit);
                 console.log("1");
                 await updateSubmissionService(userId, questionId, code, result, status, totalScore, oldSubmit.score, oldSubmit.status)
             } else if (checkExist === false && checkResult[0] !== "T") {

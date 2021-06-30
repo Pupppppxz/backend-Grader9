@@ -1,17 +1,8 @@
-const { SubmitCodeModel, SubmitModel } = require('../../models')
 const updateUserScoreService = require('./updateUserScoreService')
 const addFinishedSubmissionService = require('./addFinishedSubmissionService')
 const addSuccessSubmissionService = require('./addSuccessSubmissionService')
-
-const updateSubmitCode = async function(userId, questionId, code, status) {
-    const update = await SubmitCodeModel.findOneAndUpdate({userId: userId, questionId: questionId}, {code: code, status: status})
-    return update
-}
-
-const updateSubmit = async function(userId, questionId, result, status, score) {
-    const update = await SubmitModel.findOneAndUpdate({userId: userId, questionId: questionId}, {status: status, result: result, score: score})
-    return update
-}
+const updateSubmitCodeService = require('./updateSubmitCodeService')
+const updateSubmitService = require('./updateSubmitService')
 
 module.exports = async function updateSubmissionService(userId, questionId, code, result, status, totalScore, oldScore, oldStatus) {
     try {
@@ -31,16 +22,14 @@ module.exports = async function updateSubmissionService(userId, questionId, code
             } else if(oldStatus > status && oldStatus !== 2) {
                 await updateUserScoreService(userId, totalScore, oldScore, "minus")
             }
-        } else if (result === "B") {
-            await updateUserScoreService(userId, 0, oldScore, "minus")
-        } else if (result === "T") {
+        } else if (result === "B" || result === "T") {
             await updateUserScoreService(userId, 0, oldScore, "minus")
         }
     } catch (err) {
         console.log(err)
     } finally {
-        await updateSubmitCode(userId, questionId, code, status)
-        await updateSubmit(userId, questionId, result, status, totalScore)
+        await updateSubmitCodeService(userId, questionId, code, status)
+        await updateSubmitService(userId, questionId, result, status, totalScore)
     }
     
 }
