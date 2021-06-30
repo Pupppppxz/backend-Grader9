@@ -20,6 +20,7 @@ module.exports = async function getQuestionByIdService(userId, questionId) {
     const question = await getQuestion(questionId)
     const submit = await getSubmit(userId, questionId)
     const input = question.input.split("$.$")
+    const output = question.unit === " Pattern" ? question.output : question.output.replace("\n", "")
     const testCase = "-"
     let item = []
     if(submit !== 0) {
@@ -27,6 +28,8 @@ module.exports = async function getQuestionByIdService(userId, questionId) {
             _id: question._id, 
             title: question.title,  
             status: submit.status,
+            input: question.input,
+            output: output,
             question: question.question,
             rank: question.rank,
             linkPDF: question.linkPDF,
@@ -51,6 +54,8 @@ module.exports = async function getQuestionByIdService(userId, questionId) {
             _id: question._id,
             title: question.title, 
             status: question.status,
+            input: question.input,
+            output: output,
             question: question.question,
             rank: question.rank,
             linkPDF: question.linkPDF,

@@ -7,9 +7,7 @@ const { getScoreByQuestionService } = require("../questions")
 module.exports = async function createSubmissionService(userId, questionId, status, result, rank){
 
     try {
-        if(result === "B") {
-            await insertSubmissionService(userId, questionId, status, result, 0)
-        } else {
+        if(result !== "B" && result !== "T") {
             const totalScore = await getScoreByQuestionService(result, rank)
             await addScoreToUserService(userId, totalScore)
             if (status === 2) {
@@ -17,6 +15,10 @@ module.exports = async function createSubmissionService(userId, questionId, stat
                 await addFinishedSubmissionService(userId, "plus")
             }
             await insertSubmissionService(userId, questionId, status, result, totalScore)
+        } else if (result === "T") {
+            await insertSubmissionService(userId, questionId, status, result, 0)
+        } else if(result === "B") {
+            await insertSubmissionService(userId, questionId, status, result, 0)
         }
     } catch (error) {
         console.log(error)
