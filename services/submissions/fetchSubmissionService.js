@@ -20,6 +20,7 @@ module.exports = async function fetchSubmissionService(data){
     const code = data.code
     const status = Number(data.status)
     const rank = data.rank 
+    const number = data.number
     if(isValidObjectId(userId) === true){
         UserModel.findOne({_id: data.userId})
         .then(user => {
