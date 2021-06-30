@@ -14,12 +14,11 @@ dotenv.config()
 
 module.exports = async function fetchSubmissionService(data){
     
-    console.log(data);
     const result = data.result
     const questionId = data.questionId
     const userId = data.userId
     const code = data.code
-    const status = data.status
+    const status = Number(data.status)
     const rank = data.rank 
     if(isValidObjectId(userId) === true){
         UserModel.findOne({_id: data.userId})
@@ -32,35 +31,22 @@ module.exports = async function fetchSubmissionService(data){
         return {InvalidUserError: "Invalid userId"}
     }
     try {
-        const oldSubmit = await getOldSubmission(userId, questionId)
-        const checkExist = await checkSubmissionExistService(userId, questionId)
-        const totalScore = await getScoreByQuestionService(result, rank)
-        
-        if(result !== "B") {
-            const checkResult = result.split("")
-            if(checkExist === true && checkResult[0] !== "T") {
-                console.log(oldSubmit);
-                console.log("1");
+        if(result === "C" || result === "L" || result === "F" || result === "Y" || result === "X" || result === "O") {
+            data = {SubmissionFaild :"faild to submission, result : " + result + " uId : " + userId + " qId : " + questionId}
+        } else {
+            const oldSubmit = await getOldSubmission(userId, questionId)
+            const checkExist = await checkSubmissionExistService(userId, questionId)
+            const totalScore = await getScoreByQuestionService(result, rank)
+            
+            console.log(totalScore);
+            if(checkExist === true) {
+                console.log("S1");
                 await updateSubmissionService(userId, questionId, code, result, status, totalScore, oldSubmit.score, oldSubmit.status)
-            } else if (checkExist === false && checkResult[0] !== "T") {
-                console.log("2");
+            } else if (checkExist === false) {
+                console.log("S2");
                 await createSubmissionService(userId, questionId, status, result, totalScore)
                 await insertSubmissionCodeService(userId, questionId, code, status)
-            } else if (checkExist === true && checkResult[0] === "T") {
-                console.log("3");
-                await updateSubmissionService(userId, questionId, code, checkResult[0], status, totalScore, oldSubmit.score, oldSubmit.status)
-            } else if (checkExist === false && checkResult[0] === "T") {
-                console.log("4");
-                await createSubmissionService(userId, questionId, status, checkResult[0], totalScore)
-                await insertSubmissionCodeService(userId, questionId, code, checkResult[0])
             }
-        } else if(checkExist === true && result === "B") {
-            console.log("5");
-            await updateSubmissionService(userId, questionId, code, result, status, totalScore, oldSubmit.score, oldSubmit.status)
-        } else if(checkExist === false && result === "B") {
-            console.log("6");
-            await createSubmissionService(userId, questionId, status, result, totalScore)
-            await insertSubmissionCodeService(userId, questionId, code, status)
         }
     } catch (err) {
         console.log(err)

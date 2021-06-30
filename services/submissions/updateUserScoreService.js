@@ -6,9 +6,9 @@ module.exports = async function updateUserScoreService(uId, scoreFromGrader, old
     try {
         if(type === "plus") {
             newScore = Number(user.score) + (Number(scoreFromGrader) - Number(oldScore))
-        } else if(type === "minus") {
+        } else if (type === "minus") {
             newScore = Number(user.score) - (Number(oldScore) - Number(scoreFromGrader))
-        } else {
+        } else if (type === "equal") {
             if(scoreFromGrader < oldScore) {
                 newScore = Number(user.score) - (Number(oldScore) - Number(scoreFromGrader))
             } else if(scoreFromGrader > oldScore) {
