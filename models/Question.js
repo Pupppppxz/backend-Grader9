@@ -80,6 +80,10 @@ const QuestionSchema = new mongoose.Schema({
     finished: {
         type: Number,
         default: 0
+    },
+    opened: {
+        type: Boolean,
+        default: false
     }
 }, {
     timestamps: { currentTime: Date.now }

@@ -8,6 +8,7 @@ const updatePasswordService = require('./updatePasswordService')
 const getScoreBoardService = require('./getScoreBoardService')
 const profileUploadService = require('./profileUploadService')
 const updateGroupService = require('./updateGroupService')
+const getCommitTableService = require('./getCommitTableService')
 
 module.exports = {
     loginService,
@@ -19,5 +20,6 @@ module.exports = {
     updatePasswordService,
     getScoreBoardService,
     profileUploadService,
-    updateGroupService
+    updateGroupService,
+    getCommitTableService
 }

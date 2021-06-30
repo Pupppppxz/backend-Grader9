@@ -3,9 +3,10 @@ const router = express.Router()
 const userController = require('./controllers/users')
 const questionController = require('./controllers/questions')
 const submissionController = require('./controllers/submissions')
+const adminController = require('./controllers/admin')
 const services = require('./services/users')
 const upload = require('./middleware/upload')
-//login
+
 router.post('/login', (req, res) => services.loginService(req, res))
 router.post('/register', (req, res) => services.registerService(req, res))
 router.put('/user/:id', (req, res) => userController.updateUserController(req, res))
@@ -27,5 +28,11 @@ router.get('/sub-code', (req, res) => submissionController.getSubmissionCodeCont
 router.get('/finish-sub', (req, res) => submissionController.getFinishSubmissionCodeController(req, res))
 router.get('/submission', (req, res) => submissionController.getSubmissionController(req, res))
 router.post('/submit', (req, res) => submissionController.fetchSubmissionController(req, res))
+
+router.post('/question-check', (req, res) => adminController.checkQuestionController(req, res))
+router.put('/question-recheck', (req, res) => adminController.recheckQuestionController(req, res))
+router.put('/question-open', (req, res) => adminController.openQuestionController(req, res))
+router.get('/leader', (req, res) => adminController.getLeaderController(req, res))
+router.get('/questions-all', (req, res) => adminController.getAllQuestionController(req, res))
 
 module.exports = router
