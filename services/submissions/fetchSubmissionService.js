@@ -28,17 +28,17 @@ module.exports = async function fetchSubmissionService(data){
         if(result !== "B") {
             const checkResult = result.split("")
             if(checkExist === true && checkResult[0] !== "T") {
-                // console.log("1");
+                console.log("1");
                 await updateSubmissionService(userId, questionId, code, result, status, rank)
             } else if (checkExist === false && checkResult[0] !== "T") {
-                // console.log("2");
+                console.log("2");
                 await createSubmissionService(userId, questionId, status, result, rank)
                 await insertSubmissionCodeService(userId, questionId, code, status)
             } else if (checkExist === true && checkResult[0] === "T") {
-                // console.log("3");
+                console.log("3");
                 await updateSubmissionService(userId, questionId, code, checkResult[0], status, rank)
             } else if (checkExist === false && checkResult[0] === "T") {
-                // console.log("4");
+                console.log("4");
                 await createSubmissionService(userId, questionId, status, checkResult[0], rank)
                 await insertSubmissionCodeService(userId, questionId, code, checkResult[0])
             }
