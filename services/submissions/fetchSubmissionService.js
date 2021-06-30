@@ -1,5 +1,6 @@
 // const { graderGetQuestionService } = require('../questions')
 // const fetch = require('node-fetch')
+const { UserModel } = require('../../models')
 const dotenv = require('dotenv')
 const updateSubmissionService = require('./updateSubmissionService')
 const checkSubmissionExistService = require('./checkSubmissionExistService')
@@ -9,27 +10,19 @@ const updateUserCommitService = require('./updateUserCommitService')
 dotenv.config()
 
 module.exports = async function fetchSubmissionService(data){
-    // const question = await graderGetQuestionService(questionId)
-    // const output = question.unit === " Pattern" ? question.output : question.output.replace("\n", "")
-    // const body = {
-    //     questionId: questionId,
-    //     userId: userId,
-    //     code: code,
-    //     input: question.input,
-    //     output: output
-    // }
-    // const res = await fetch(`${process.env.GRADER_URL}/check_result`, {
-    //     method: 'POST',
-    //     body: JSON.stringify(body),
-    //     headers: { 'Content-type': 'application/json'}
-    // })
+    UserModel.findOne({_id: data.userId})
+    .then(user => {
+        if(!user) {
+            return res.status(400).json({InvalidUserError: "Can not found user"})
+        }
+    })
+    console.log(data);
     const result = data.result
     const questionId = data.questionId
     const userId = data.userId
     const code = data.code
     const status = data.status
     const rank = data.rank 
-    // const = await res.json()
     const checkExist = await checkSubmissionExistService(userId, questionId)
     try {
         if(result !== "B") {
