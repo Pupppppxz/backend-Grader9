@@ -10,8 +10,10 @@ const getSubmissionCode = async function(userId, questionId) {
     return code
 }
 module.exports = async function getSubmissionService(userId, questionId) {
-    const submission = await getSubmit(userId, questionId)
-    const submissionCode = await getSubmissionCode(userId, questionId)
+    const [submission, submissionCode] = await Promise.all([
+        getSubmit(userId, questionId), 
+        getSubmissionCode(userId, questionId)
+    ])
     const newObject = {
         result: submission.score,
         status: submission.status,

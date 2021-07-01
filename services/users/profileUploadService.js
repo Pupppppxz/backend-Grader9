@@ -13,18 +13,19 @@ const getExtention = async function(filename) {
 }
 
 module.exports = async function profileUploadService(id, data){
-    const imagePath = await getImagePath(id)
-    const fileextention = await getExtention(data.path)
+    const [imagePath, fileExtention] = await Promise.all([
+        getImagePath(id),
+        getExtention(data.path)
+    ])
     console.log(imagePath);
     if(imagePath.profilePicture === "undefined") {
-        fs.renameSync(data.path, "uploads\\" + imagePath.username + "." + fileextention)
-        await UserModel.findOneAndUpdate({_id: id}, {profilePicture: "uploads\\" + imagePath.username + "." + fileextention})
+        fs.renameSync(data.path, "uploads\\" + imagePath.username + "." + fileExtention)
+        await UserModel.findOneAndUpdate({_id: id}, {profilePicture: "uploads\\" + imagePath.username + "." + fileExtention})
         return {completeMessage: "upload success!"}
     } else {
-        console.log("path : " + data.path);
         fs.unlinkSync(imagePath.profilePicture)
-        fs.renameSync(data.path, "uploads\\" + imagePath.username + "." + fileextention)
-        await UserModel.findOneAndUpdate({_id: id}, {profilePicture: "uploads\\" + imagePath.username + "." + fileextention})
+        fs.renameSync(data.path, "uploads\\" + imagePath.username + "." + fileExtention)
+        await UserModel.findOneAndUpdate({_id: id}, {profilePicture: "uploads\\" + imagePath.username + "." + fileExtention})
         return {completeMessage: "update success!"}
     }
 }

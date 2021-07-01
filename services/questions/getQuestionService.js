@@ -30,8 +30,10 @@ const compareItem = function(a, b) {
 }
 
 module.exports = async function getQuestionService(userId){
-    const question = await getQuestion()
-    const submit = await getSubmit(userId)
+    const [question, submit] = await Promise.all([
+        getQuestion(),
+        getSubmit(userId)
+    ])
     let item = []
     let count = 0
     for(i = 0; i < question.length; i++) {

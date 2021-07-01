@@ -17,16 +17,12 @@ const getSubmit = async function(id, qId){
 }
 
 module.exports = async function getQuestionByIdService(userId, questionId) {
-    const question = await getQuestion(questionId)
-    const submit = await getSubmit(userId, questionId)
+    const [question, submit] = await Promise.all([
+        getQuestion(questionId),
+        getSubmit(userId, questionId)
+    ])
     const input = question.input.split("$.$")
     const output = question.unit === " Pattern" ? question.output : question.output.replace("\n", "")
-    // const str_input_1 = question.str_input_1.replace("\n", "<br/>")
-    // const str_input_2 = question.str_input_2.replace("\n", "<br/>")
-    // const str_input_3 = question.str_input_3.replace("\n", "<br/>")
-    // const str_output_1 = question.str_output_1.replace("\n", "<br/>")
-    // const str_output_2 = question.str_output_2.replace("\n", "<br/>")
-    // const str_output_3 = question.str_output_3.replace("\n" || "\\n", "<br/>")
     const testCase = "-"
     let item = []
     if(submit !== 0) {

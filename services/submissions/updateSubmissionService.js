@@ -10,11 +10,6 @@ const check = function(result) {
 }
 module.exports = async function updateSubmissionService(userId, questionId, code, result, status, totalScore, oldScore, oldStatus) {
     let checked = check(result)
-    // console.log("ee", checked);
-    // console.log("total", totalScore);
-    // console.log("old", oldScore);
-    // console.log("status", status);
-    // console.log("olsStatus", oldStatus);
     try {
         if(checked === 1) {
             if(oldStatus === status) {
@@ -25,14 +20,18 @@ module.exports = async function updateSubmissionService(userId, questionId, code
                 await updateUserScoreService(userId, totalScore, oldScore, "plus")
             } else if(oldStatus < status && status === 2) {
                 console.log("5");
-                await updateUserScoreService(userId, totalScore, oldScore, "plus")
-                await addSuccessSubmissionService(questionId, "plus")
-                await addFinishedSubmissionService(userId, "plus")
+                await Promise.all([
+                    updateUserScoreService(userId, totalScore, oldScore, "plus"),
+                    addSuccessSubmissionService(questionId, "plus"),
+                    addFinishedSubmissionService(userId, "plus")
+                ])
             } else if (oldStatus > status && oldStatus === 2) {
                 console.log("6");
-                await addFinishedSubmissionService(userId, "minus")
-                await addSuccessSubmissionService(questionId, "minus")
-                await updateUserScoreService(userId, totalScore, oldScore, "minus")
+                await Promise.all([
+                    addFinishedSubmissionService(userId, "minus"),
+                    addSuccessSubmissionService(questionId, "minus"),
+                    updateUserScoreService(userId, totalScore, oldScore, "minus")
+                ])
             } else if(oldStatus > status && oldStatus !== 2) {
                 console.log("7");
                 await updateUserScoreService(userId, totalScore, oldScore, "minus")
@@ -44,8 +43,10 @@ module.exports = async function updateSubmissionService(userId, questionId, code
     } catch (err) {
         console.log(err)
     } finally {
-        await updateSubmitCodeService(userId, questionId, code, status)
-        await updateSubmitService(userId, questionId, result, status, totalScore)
+        await Promise.all([
+            updateSubmitCodeService(userId, questionId, code, status),
+            updateSubmitService(userId, questionId, result, status, totalScore)
+        ])
     }
     
 }

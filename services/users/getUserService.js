@@ -27,10 +27,12 @@ const checkExist = async function(userId) {
 }
 
 module.exports = async function getUserService(id) {
-    const exist = await checkExist(id)
-    const ranking = await getUserRankings(id)
+    const [exist, ranking, getUser] = await Promise.all([
+        checkExist(id),
+        getUserRankings(id),
+        UserModel.findOne({_id: id})
+    ])
     const check = (exist === true ? ranking : "ไม่มีอันดับ")
-    const getUser = await UserModel.findOne({_id: id})
     const progress = await getProgression(getUser.finished)
     const user = {
         nickName: getUser.nickName,

@@ -12,12 +12,16 @@ module.exports = async function createSubmissionService(userId, questionId, stat
     let checked = check(result)
     try {
         if(checked === 1) {
-            await addScoreToUserService(userId, totalScore)
             if (status === 2) {
-                await addSuccessSubmissionService(questionId, "plus")
-                await addFinishedSubmissionService(userId, "plus")
+                await Promise.all([
+                    addSuccessSubmissionService(questionId, "plus"),
+                    addFinishedSubmissionService(userId, "plus")
+                ])
             }
-            await insertSubmissionService(userId, questionId, status, result, totalScore, number)
+            await Promise.all([
+                addScoreToUserService(userId, totalScore),
+                insertSubmissionService(userId, questionId, status, result, totalScore, number)
+            ])
         } else if(checked === 2) {
             await insertSubmissionService(userId, questionId, status, result, 0)
         }
