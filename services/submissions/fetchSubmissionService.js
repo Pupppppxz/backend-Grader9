@@ -15,7 +15,7 @@ const numberCheck = async (number, questionId) => {
         const question = await graderGetQuestionService(questionId)
         return question.number
     } else {
-        return number
+        return Number(number)
     }
 }
 

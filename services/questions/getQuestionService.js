@@ -65,7 +65,6 @@ module.exports = async function getQuestionService(userId){
                     }
                     item.push(items)
                     count = count + 1
-                    console.log("hhh", i);
                 } else {
                     let items = {
                         _id: question[i]._id,
