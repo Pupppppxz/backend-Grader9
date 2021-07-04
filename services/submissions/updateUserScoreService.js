@@ -2,6 +2,7 @@ const { UserModel } = require("../../models")
 
 module.exports = async function updateUserScoreService(uId, scoreFromGrader, oldScore, type) {
     const user = await UserModel.findOne({_id: uId}).select(['score'])
+    console.log("score", user.score);
     let newScore
     try {
         if(type === "plus") {
