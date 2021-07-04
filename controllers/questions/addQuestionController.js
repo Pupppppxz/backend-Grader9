@@ -22,7 +22,7 @@ module.exports = async function addQuestionController(req, res) {
         questionId: add,
         oldStatus: 0
       }
-      fetch(`${process.env.GRADER_URL}/check_correct`, {
+      await fetch(`${process.env.GRADER_URL}/check_correct`, {
         method: 'POST',
         body: JSON.stringify(fromBackend),
         headers: { 'Content-type': 'application/json'}
