@@ -42,6 +42,7 @@ module.exports = async function fetchSubmissionService(data){
     try { 
         if(["C","L","F","Y","X","O","N"].includes(result)) {
             data = {SubmissionFaild :"faild to submission, result : " + result + " uId : " + userId + " qId : " + questionId}
+            console.log(data); 
         } else {
             const [oldSubmit, checkExist, totalScore] = await Promise.all([
                 getOldSubmission(userId, questionId), 
