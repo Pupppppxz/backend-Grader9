@@ -40,25 +40,26 @@ module.exports = async function fetchSubmissionService(data){
         return {InvalidUserError: "Invalid userId"}
     }
     try { 
-        if(["C","L","F","Y","X","O","N"].includes(result)) {
-            data = {SubmissionFaild :"faild to submission, result : " + result + " uId : " + userId + " qId : " + questionId}
-            console.log(data); 
-        } else {
-            const [oldSubmit, checkExist, totalScore] = await Promise.all([
-                getOldSubmission(userId, questionId), 
-                checkSubmissionExistService(userId, questionId), 
-                getScoreByQuestionService(result, rank)
+        // if(["C","L","F","Y","X","O","N"].includes(result)) {
+        //     data = {SubmissionFaild :"faild to submission, result : " + result + " uId : " + userId + " qId : " + questionId}
+        //     console.log(data); 
+        // } else {
+            
+        // }
+        const [oldSubmit, checkExist, totalScore] = await Promise.all([
+            getOldSubmission(userId, questionId), 
+            checkSubmissionExistService(userId, questionId), 
+            getScoreByQuestionService(result, rank)
+        ])
+        if(checkExist === true) {
+            console.log("S1");
+            await updateSubmissionService(userId, questionId, code, result, status, totalScore, oldSubmit.score, oldSubmit.status)
+        } else if (checkExist === false) {
+            console.log("S2");
+            await Promise.all([
+                createSubmissionService(userId, questionId, status, result, totalScore, number),
+                insertSubmissionCodeService(userId, questionId, code, status)
             ])
-            if(checkExist === true) {
-                console.log("S1");
-                await updateSubmissionService(userId, questionId, code, result, status, totalScore, oldSubmit.score, oldSubmit.status)
-            } else if (checkExist === false) {
-                console.log("S2");
-                await Promise.all([
-                    createSubmissionService(userId, questionId, status, result, totalScore, number),
-                    insertSubmissionCodeService(userId, questionId, code, status)
-                ])
-            }
         }
     } catch (err) {
         console.log(err)
