@@ -17,16 +17,16 @@
     - **@GET** `/question-id/:userId/:questionId`
     - **@GET** `/all-qusetions`
     - **@DELETE** `/del-question/:id`
+    - **@GET** `/grader-question/:id`
  - `submission`
-    - **@POST** `/submit`
     - **@GET** `/sub-code`
     - **@GET** `/finish-sub`
     - **@GET** `/submission`
 
 ------------------------------
 ## **Auth**
-#### **@POST** `/sign-up`
- - Return true with http status code 201 if email was successfully sent.
+#### **@POST** `/register`
+ - Return status 200 if 
 #### **Parameters**
 |Field|Data Type|Description|
 |-----|---------|-----------|
