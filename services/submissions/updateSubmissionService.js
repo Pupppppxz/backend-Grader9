@@ -6,7 +6,7 @@ const updateSubmitService = require('./updateSubmitService')
 
 const check = function(result) {
     if(result.includes("B") === false) return 1
-    if(result.includes("C","L","F","Y","X","O","N") === true) return 2
+    if((["C","L","F","Y","X","O","N"]).includes(result) === true) return 2
 }
 module.exports = async function updateSubmissionService(userId, questionId, code, result, status, totalScore, oldScore, oldStatus) {
     let checked = check(result)
