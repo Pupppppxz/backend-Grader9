@@ -23,7 +23,7 @@ router.put('/update-question/:id', (req, res) => questionController.editQuestion
 router.get('/question-id/:userId/:questionId', (req, res) => questionController.getQuestionByIdController(req, res))
 router.get('/all-questions', (req, res) => questionController.getQuestionController(req, res))
 router.delete('/del-question/:id', (req, res) => questionController.deleteQuestionController(req, res))
-router.get('/grader-question', (req, res) => questionController.graderGetQuestionController(req, res))
+router.get('/grader-question/:questionId', (req, res) => questionController.graderGetQuestionController(req, res))
 
 router.get('/sub-code', (req, res) => submissionController.getSubmissionCodeController(req, res))
 router.get('/finish-sub', (req, res) => submissionController.getFinishSubmissionCodeController(req, res))
