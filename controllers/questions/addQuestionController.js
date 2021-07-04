@@ -22,13 +22,13 @@ module.exports = async function addQuestionController(req, res) {
         questionId: add,
         oldStatus: 0
       }
-      const res = await fetch(`${process.env.GRADER_URL}/check_correct`, {
+      fetch(`${process.env.GRADER_URL}/check_correct`, {
         method: 'POST',
         body: JSON.stringify(fromBackend),
         headers: { 'Content-type': 'application/json'}
       })
-      console.log(res);
-      await updateQuestionService(add, {opened: Number(res)})
+      // console.log(res);
+      // await updateQuestionService(add, {opened: Number(res)})
       return res.send(add)
     } else {
       return res.send(401).json({questionExist: "Question already exists!"})
