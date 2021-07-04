@@ -12,6 +12,7 @@ const getSubmit = async function(id){
                         .find({userId: id})
                         .select(['status','questionId','result'])
                         .sort({number: 'asc'})
+                        console.log(question);
     if(question.length === 0){
         return 0
     } else {
@@ -37,7 +38,7 @@ module.exports = async function getQuestionService(userId){
     let item = []
     let count = 0
     for(i = 0; i < question.length; i++) {
-        if(submit.length > 0){
+        if(submit > 0){
             if(count <= submit.length) {
                 if(submit[count].questionId === String(question[i]._id)) {
                     let items = {
