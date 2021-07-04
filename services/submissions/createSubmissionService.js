@@ -4,8 +4,8 @@ const addFinishedSubmissionService = require('./addFinishedSubmissionService')
 const addSuccessSubmissionService = require('./addSuccessSubmissionService')
 
 const check = function(result) {
-    if(result.includes("B") === false) return 1
-    if((["C","L","F","Y","X","O","N"]).includes(result) === true) return 2
+    if((["C","L","F","Y","X","O","N","B"]).includes(result) === false) return 1
+    if((["C","L","F","Y","X","O","N","B"]).includes(result) === true) return 2
 }
 
 module.exports = async function createSubmissionService(userId, questionId, status, result, totalScore, number){
