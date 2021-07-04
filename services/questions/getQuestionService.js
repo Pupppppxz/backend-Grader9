@@ -10,7 +10,6 @@ const getQuestion = async function(){
 const getSubmit = async function(id){
     const question = await SubmitModel
                         .find({userId: id})
-                        .select(['status','questionId','result'])
                         .sort({number: 'asc'})
     if(question.length === 0){
         return 0
@@ -36,11 +35,14 @@ module.exports = async function getQuestionService(userId){
     ])
     let item = []
     let count = 0
+    console.log(submit.length);
     const testCase = "-"
-    for(i = 0; i < question.length; i++) {
-        if(submit.length > 0){
-            if(count <= submit.length) {
-                if(submit[count].questionId === String(question[i]._id)) {
+    if(submit.length > 0){
+        for (let i = 0; i < question.length; i++) {
+            if(count < submit.length) {
+                console.log("a");
+                if(submit[count].questionId == question[i]._id) {
+                    console.log("b");
                     let items = {
                         _id: question[i]._id,
                         title: question[i].title, 
@@ -51,22 +53,25 @@ module.exports = async function getQuestionService(userId){
                         result: submit[count].result,
                         finished: question[i].finished
                     }
+                    console.log("i",i);
+                    console.log("c",count);
                     item.push(items)
                     count = count + 1
                 } else {
+                    console.log("c");
                     const input = question[i].input.split("$.$")
                     let items = {
                         _id: question[i]._id,
                         title: question[i].title, 
                         status: question[i].status,
-                        rank: question[i].rank,
+                        rank: question[i].rank, 
                         unit: question[i].unit,
                         number: question[i].number,
                         result: testCase.repeat(input.length),
                         finished: question[i].finished
                     }
                     item.push(items)
-                } 
+                }
             } else {
                 const input = question[i].input.split("$.$")
                 let items = {
@@ -81,7 +86,9 @@ module.exports = async function getQuestionService(userId){
                 }
                 item.push(items)
             }
-        } else {
+        }
+    } else {
+        for (let i = 0; i < question.length; i++) {
             const input = question[i].input.split("$.$")
             let items = {
                 _id: question[i]._id,
