@@ -13,8 +13,8 @@ const getUserRankings = async function(id) {
 const getProgression = async function(passed) {
     const allQuestions = await QuestionModel.find({})
     const questionLength = allQuestions.length
-    const progress = Float(passed) / Float(questionLength)
-    const realProgress = progress.toFixed(4) * 100
+    const progress = Number(passed) * 100 / Number(questionLength)
+    const realProgress = progress.toFixed(2)
     return realProgress
 }
 
