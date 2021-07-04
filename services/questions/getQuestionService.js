@@ -37,28 +37,18 @@ module.exports = async function getQuestionService(userId){
     ])
     let item = []
     let count = 0
+    const testCase = "-"
+    console.log(submit.length);
     for(i = 0; i < question.length; i++) {
-        if(submit > 0){
+        if(submit.length > 0){
             if(count <= submit.length) {
                 if(submit[count].questionId === String(question[i]._id)) {
                     let items = {
                         _id: question[i]._id,
                         title: question[i].title, 
                         status: submit[count].status,
-                        question: question[i].question,
                         rank: question[i].rank,
-                        linkPDF: question[i].linkPDF,
-                        chaya: question[i].chaya,
                         unit: question[i].unit,
-                        detail: question[i].detail,
-                        str_input_1: question[i].str_input_1,
-                        str_output_1: question[i].str_output_1,
-                        str_input_2: question[i].str_input_2,
-                        str_output_2: question[i].str_output_2,
-                        str_input_3: question[i].str_input_3,
-                        str_output_3: question[i].str_output_3,
-                        q_input: question[i].q_input,
-                        q_output: question[i].q_output,
                         number: question[i].number,
                         result: submit[count].result,
                         finished: question[i].finished
@@ -66,76 +56,40 @@ module.exports = async function getQuestionService(userId){
                     item.push(items)
                     count = count + 1
                 } else {
+                    const input = question[i].input.split("$.$")
                     let items = {
                         _id: question[i]._id,
                         title: question[i].title, 
                         status: question[i].status,
-                        question: question[i].question,
-                        rank: question[i].rank,
-                        linkPDF: question[i].linkPDF,
-                        chaya: question[i].chaya,
                         unit: question[i].unit,
-                        detail: question[i].detail,
-                        str_input_1: question[i].str_input_1,
-                        str_output_1: question[i].str_output_1,
-                        str_input_2: question[i].str_input_2,
-                        str_output_2: question[i].str_output_2,
-                        str_input_3: question[i].str_input_3,
-                        str_output_3: question[i].str_output_3,
-                        q_input: question[i].q_input,
-                        q_output: question[i].q_output,
                         number: question[i].number,
-                        result: "----",
+                        result: testCase.repeat(input.length),
                         finished: question[i].finished
                     }
                     item.push(items)
                 } 
             } else {
+                const input = question[i].input.split("$.$")
                 let items = {
                     _id: question[i]._id,
                     title: question[i].title, 
                     status: question[i].status,
-                    question: question[i].question,
-                    rank: question[i].rank,
-                    linkPDF: question[i].linkPDF,
-                    chaya: question[i].chaya,
                     unit: question[i].unit,
-                    detail: question[i].detail,
-                    str_input_1: question[i].str_input_1,
-                    str_output_1: question[i].str_output_1,
-                    str_input_2: question[i].str_input_2,
-                    str_output_2: question[i].str_output_2,
-                    str_input_3: question[i].str_input_3,
-                    str_output_3: question[i].str_output_3,
-                    q_input: question[i].q_input,
-                    q_output: question[i].q_output,
                     number: question[i].number,
-                    result: "----",
+                    result: testCase.repeat(input.length),
                     finished: question[i].finished
                 }
                 item.push(items)
             }
         } else {
+            const input = question[i].input.split("$.$")
             let items = {
                 _id: question[i]._id,
                 title: question[i].title, 
                 status: question[i].status,
-                question: question[i].question,
-                rank: question[i].rank,
-                linkPDF: question[i].linkPDF,
-                chaya: question[i].chaya,
                 unit: question[i].unit,
-                detail: question[i].detail,
-                str_input_1: question[i].str_input_1,
-                str_output_1: question[i].str_output_1,
-                str_input_2: question[i].str_input_2,
-                str_output_2: question[i].str_output_2,
-                str_input_3: question[i].str_input_3,
-                str_output_3: question[i].str_output_3,
-                q_input: question[i].q_input,
-                q_output: question[i].q_output,
                 number: question[i].number,
-                result: "----",
+                result: testCase.repeat(input.length),
                 finished: question[i].finished
             }
             item.push(items)
