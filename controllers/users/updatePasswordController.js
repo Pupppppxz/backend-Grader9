@@ -10,12 +10,12 @@ module.exports = async function updatePasswordController(req, res) {
   if(!user){
     return res.status(401).json({invalidUser: "User does not exist"})
   } else {
-    const { err, isValid } = await validatePassword(req.body)
-    if(!isValid){
-      return res.status(401).json(err)
-    }
     const validPassword = await bcrypt.compare(oldPassword, user.password)
     if(validPassword) {
+      const { err, isValid } = await validatePassword(req.body)
+      if(!isValid){
+        return res.status(401).json(err)
+      }
       const salt = await bcrypt.genSalt(10)
       const hash = await bcrypt.hash(newPassword, salt)
       await updatePasswordService(req.params.id, hash)
