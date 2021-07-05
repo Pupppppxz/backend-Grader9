@@ -21,7 +21,7 @@ module.exports = async function updatePasswordController(req, res) {
         await updatePasswordService(req.params.id, hash)
         return res.status(200).json({updateSuccess: "Success update password!"})
       } else {
-        return res.status(400).json({IncorrectOldPassword: "Incorrect password"})
+        return res.status(401).json({IncorrectOldPassword: "Incorrect password"})
       }
     }
 }
