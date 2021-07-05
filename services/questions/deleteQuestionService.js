@@ -1,7 +1,5 @@
 const { QuestionModel, SubmitModel, SubmitCodeModel } = require('../../models')
 const { updateUserScoreService } = require('../submissions')
-const { getUserScoreService } = require('../users')
-const mongoose = require('mongoose')
 
 const getSubmit = async function(id) {
     const submitArr = await SubmitModel.find({questionId: id})
@@ -34,15 +32,14 @@ module.exports = async function deleteQuestionService(id) {
             await deleteQuestion(id)
         } else {
             for(let i = 0; i < submit.length; i++){
-                const oldScore = await getUserScoreService(submit[i].userId)
                 if(submit[i].score !== 0){
-                   await updateUserScoreService(submit[i].userId, submit[i].score, oldScore, "minus")    
+                   await updateUserScoreService(submit[i].userId, 0, submit[i].score, "minus")    
                 }
                 await deleteSubmit(submit[i]._id)
             }
         }      
     } catch (err) {
-        console.log(err)   
+        console.log(err)    
     } finally {
         await deleteSubmitCode(id)
         await deleteQuestion(id)

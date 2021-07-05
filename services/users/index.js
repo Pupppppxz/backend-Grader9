@@ -9,7 +9,7 @@ const getScoreBoardService = require('./getScoreBoardService')
 const profileUploadService = require('./profileUploadService')
 const updateGroupService = require('./updateGroupService')
 const getCommitTableService = require('./getCommitTableService')
-const getUserScoreService = require('.getUserScoreService')
+const getUserScoreService = require('./getUserScoreService')
 
 module.exports = {
     loginService,

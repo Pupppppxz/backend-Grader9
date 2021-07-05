@@ -6,7 +6,7 @@ const insertSubmissionCodeService = require('./insertSubmissionCodeService')
 const createSubmissionService = require('./createSubmissionService')
 const updateUserCommitService = require('./updateUserCommitService')
 const getOldSubmission = require('./getOldSubmission')
-const { getScoreByQuestionService, graderGetQuestionService} = require('../questions')
+const { getScoreByQuestionService, graderGetQuestionService } = require('../questions')
 const isValidObjectId = require('../users/isValidObjectId')
 dotenv.config()
 
@@ -39,13 +39,7 @@ module.exports = async function fetchSubmissionService(data){
     } else {
         return {InvalidUserError: "Invalid userId"}
     }
-    try { 
-        // if(["C","L","F","Y","X","O","N"].includes(result)) {
-        //     data = {SubmissionFaild :"faild to submission, result : " + result + " uId : " + userId + " qId : " + questionId}
-        //     console.log(data); 
-        // } else {
-            
-        // }
+    try {
         const [oldSubmit, checkExist, totalScore] = await Promise.all([
             getOldSubmission(userId, questionId), 
             checkSubmissionExistService(userId, questionId), 
