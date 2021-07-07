@@ -24,6 +24,7 @@ module.exports = async function getHistoryService(userId) {
     } else {
         for(i = 0; i < history.length; i++) {
             const question = await getQuestion(history[i].questionId)
+            const time = moment(history[i].updatedAt)
             let item = {
                 title: question.title,
                 question: question.question,
@@ -32,7 +33,7 @@ module.exports = async function getHistoryService(userId) {
                 result: history[i].result,
                 score: history[i].score,
                 status: history[i].status,
-                time: moment(history[i].createdAt).format("l") + " " + moment(history[i].createdAt).format("LTS")
+                time: time.utcOffset('+0700').format('l') + " " + time.utcOffset('+0700').format('LTS')
             }
             items.push(item)
         }

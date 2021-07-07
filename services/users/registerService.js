@@ -14,10 +14,12 @@ module.exports = function registerUser(req, res) {
         if (user) {
             return res.status(400).json({ username: "Username already exists" })
         } else {
+            const nickName = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5)
             const newUser = new UserModel({
                 username: req.body.username,
                 password: req.body.password,
-                group: req.body.group
+                group: req.body.group,
+                nickName: nickName
             })
 
             bcrypt.genSalt(10, (err, salt) => {

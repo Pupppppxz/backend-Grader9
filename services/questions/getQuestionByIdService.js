@@ -9,7 +9,7 @@ const getQuestion = async function(id){
 const getSubmit = async function(id, qId){
     const question = await SubmitModel
                         .findOne({userId: id, questionId: qId})
-                        .select(['status','questionId','result'])
+                        .select(['status','questionId','result','updatedAt'])
     if(question === null || question === undefined){
         return 0
     } else {
@@ -17,15 +17,19 @@ const getSubmit = async function(id, qId){
     }
 }
 
+const formatTime = async (date, to) => {
+    return new Date((typeof date === 'string' ? new Date(date) : date).toLocaleString("en-us", {timeZone: to}))
+}
+
 module.exports = async function getQuestionByIdService(userId, questionId) {
     const [question, submit] = await Promise.all([
         getQuestion(questionId),
         getSubmit(userId, questionId)
     ])
-    console.log(question);
     const testCase = "-"
     let item = []
     if(submit !== 0) {
+        const time = moment(submit.updatedAt)
         items = {
             _id: question._id, 
             title: question.title,  
@@ -47,7 +51,7 @@ module.exports = async function getQuestionByIdService(userId, questionId) {
             number: question.number,
             result: submit.result, 
             finished: question.finished,
-            time: moment(submit.updatedAt).format('l') + " " + moment(submit.updatedAt).format('LTS')
+            time: time.utcOffset('+0700').format('l') + " " + time.utcOffset('+0700').format('LTS')
         }
         item.push(items)
     } else {

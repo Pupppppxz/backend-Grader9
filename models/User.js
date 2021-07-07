@@ -1,10 +1,9 @@
 const mongoose = require('mongoose')
 
-const nickName = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5)
 const UserSchema = new mongoose.Schema({
   nickName: {
     type: String,
-    default: nickName
+    required: true
   },
   username: {
     type: String,
