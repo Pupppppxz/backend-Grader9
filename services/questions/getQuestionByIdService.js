@@ -1,4 +1,5 @@
 const { QuestionModel, SubmitModel } = require('../../models')
+const moment = require('moment')
 
 const getQuestion = async function(id){
     const question = await QuestionModel.findOne({_id: id})
@@ -21,7 +22,7 @@ module.exports = async function getQuestionByIdService(userId, questionId) {
         getQuestion(questionId),
         getSubmit(userId, questionId)
     ])
-    const input = question.input.split("$.$")
+    console.log(question);
     const testCase = "-"
     let item = []
     if(submit !== 0) {
@@ -45,10 +46,12 @@ module.exports = async function getQuestionByIdService(userId, questionId) {
             q_output: question.q_output,
             number: question.number,
             result: submit.result, 
-            finished: question.finished
+            finished: question.finished,
+            time: moment(submit.updatedAt).format('l') + " " + moment(submit.updatedAt).format('LTS')
         }
         item.push(items)
     } else {
+        const input = question.input.split("$.$")
         items = {
             _id: question._id,
             title: question.title, 

@@ -30,8 +30,6 @@ router.get('/finish-sub', (req, res) => submissionController.getFinishSubmission
 router.get('/submission', (req, res) => submissionController.getSubmissionController(req, res))
 router.post('/submit', (req, res) => submissionController.fetchSubmissionController(req, res))
 
-router.post('/question-check', (req, res) => adminController.checkQuestionController(req, res))
-router.put('/question-recheck', (req, res) => adminController.recheckQuestionController(req, res))
 router.get('/leader', (req, res) => adminController.getLeaderController(req, res))
 
 module.exports = router

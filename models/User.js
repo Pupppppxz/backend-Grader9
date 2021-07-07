@@ -39,8 +39,8 @@ const UserSchema = new mongoose.Schema({
     default: 1
   },
   group: {
-    type: String, 
-    default: "unknown" 
+    type: Number, 
+    required: true 
   }, 
   commit: {
     type: Number,

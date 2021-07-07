@@ -16,7 +16,7 @@ const deleteQuestion = async function(id){
 }
 
 const deleteSubmit = async function(id) {
-    const deleteSubmit = await SubmitModel.findOneAndDelete({questionId: id})
+    const deleteSubmit = await SubmitModel.deleteOne({questionId: id})
     return deleteSubmit
 }
 
