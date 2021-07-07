@@ -9,6 +9,7 @@ const getOldSubmission = require('./getOldSubmission')
 const getScoreByQuestionService = require('../questions/getScoreByQuestionService')
 const graderGetQuestionService = require('../questions/graderGetQuestionService')
 const isValidObjectId = require('../users/isValidObjectId')
+const addHistoryService = require('./addHistoryService')
 dotenv.config()
 
 const numberCheck = async (number, questionId) => {
@@ -40,12 +41,12 @@ module.exports = async function fetchSubmissionService(data){
     } else {
         return {InvalidUserError: "Invalid userId"}
     }
+    const [oldSubmit, checkExist, totalScore] = await Promise.all([
+        getOldSubmission(userId, questionId), 
+        checkSubmissionExistService(userId, questionId), 
+        getScoreByQuestionService(result, rank)
+    ])
     try {
-        const [oldSubmit, checkExist, totalScore] = await Promise.all([
-            getOldSubmission(userId, questionId), 
-            checkSubmissionExistService(userId, questionId), 
-            getScoreByQuestionService(result, rank)
-        ])
         if(checkExist === true) {
             console.log("S1");
             await updateSubmissionService(userId, questionId, code, result, status, totalScore, oldSubmit.score, oldSubmit.status)
@@ -60,6 +61,7 @@ module.exports = async function fetchSubmissionService(data){
         console.log(err)
     } finally {
         await updateUserCommitService(userId)
+        await addHistoryService(userId, questionId, status, totalScore, result)
         return data
     }
 }

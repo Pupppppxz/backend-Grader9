@@ -29,6 +29,7 @@ router.get('/sub-code', (req, res) => submissionController.getSubmissionCodeCont
 router.get('/finish-sub', (req, res) => submissionController.getFinishSubmissionCodeController(req, res))
 router.get('/submission', (req, res) => submissionController.getSubmissionController(req, res))
 router.post('/submit', (req, res) => submissionController.fetchSubmissionController(req, res))
+router.get('/history', (req, res) => submissionController.getHistoryController(req, res))
 
 router.get('/leader', (req, res) => adminController.getLeaderController(req, res))
 

@@ -1,4 +1,5 @@
 const { HistoryModel, QuestionModel } = require('../../models')
+const moment = require('moment')
 
 const getHistory = async (userId) => {
     const get = await HistoryModel.find({userId: userId})
@@ -19,7 +20,7 @@ module.exports = async function getHistoryService(userId) {
     const history = await getHistory(userId)
     let items = []
     if(history === 0) {
-        return null
+        return {notHaveSubmission: "Not have submission"}
     } else {
         for(i = 0; i < history.length; i++) {
             const question = await getQuestion(history[i].questionId)
@@ -31,13 +32,11 @@ module.exports = async function getHistoryService(userId) {
                 result: history[i].result,
                 score: history[i].score,
                 status: history[i].status,
+                time: moment(history[i].createdAt).format("l") + " " + moment(history[i].createdAt).format("LTS")
             }
             items.push(item)
         }
-        if(history.length > 20) {
-            for(i = 20; i < history.length; i++) {
-                
-            }
-        }
+        // items.splice(20, items.length - 20)
+        return items
     }
 }

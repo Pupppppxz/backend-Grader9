@@ -11,6 +11,7 @@ const createSubmissionService = require('./createSubmissionService')
 const updateUserScoreService = require('./updateUserScoreService')
 const addFinishedSubmissionService = require('./addFinishedSubmissionService')
 const getSubmissionService = require('./getSubmissionService')
+const getHistoryService = require('./getHistoryService')
 
 module.exports = {
     checkSubmissionExistService,
@@ -25,5 +26,6 @@ module.exports = {
     createSubmissionService,
     updateUserScoreService,
     addFinishedSubmissionService,
-    getSubmissionService
+    getSubmissionService,
+    getHistoryService
 }
