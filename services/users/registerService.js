@@ -15,9 +15,9 @@ module.exports = function registerUser(req, res) {
             return res.status(400).json({ username: "Username already exists" })
         } else {
             const newUser = new UserModel({
-                nickName: req.body.nickName,
                 username: req.body.username,
                 password: req.body.password,
+                group: req.body.group
             })
 
             bcrypt.genSalt(10, (err, salt) => {
