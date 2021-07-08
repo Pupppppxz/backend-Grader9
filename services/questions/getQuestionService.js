@@ -35,11 +35,13 @@ module.exports = async function getQuestionService(userId){
     ])
     let item = []
     let count = 0
+    console.log(submit);
     const testCase = "-"
     if(submit.length > 0){
         for (let i = 0; i < question.length; i++) {
             if(count < submit.length) {
                 if(submit[count].questionId == question[i]._id) {
+                    console.log("1");
                     let items = {
                         _id: question[i]._id,
                         title: question[i].title, 
@@ -53,6 +55,7 @@ module.exports = async function getQuestionService(userId){
                     item.push(items)
                     count = count + 1
                 } else {
+                    console.log("2");
                     const input = question[i].input.split("$.$")
                     let items = {
                         _id: question[i]._id,

@@ -33,10 +33,6 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: "undefined"
   },
-  userRank: {
-    type: Number,
-    default: 1
-  },
   group: {
     type: Number, 
     required: true 
@@ -48,6 +44,14 @@ const UserSchema = new mongoose.Schema({
   finished: {
     type: Number,
     default: 0
+  },
+  email: {
+    type: String,
+    default: ""
+  },
+  resetNumber: {
+    type: String,
+    default: ""
   }
 }, {
   timestamps: { currentTime: Date.now }

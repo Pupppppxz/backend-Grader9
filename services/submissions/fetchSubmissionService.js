@@ -13,9 +13,9 @@ const addHistoryService = require('./addHistoryService')
 dotenv.config()
 
 const numberCheck = async (number, questionId) => {
-    if(number === undefined) {
+    if(number === undefined || number === null) {
         const question = await graderGetQuestionService(questionId)
-        return question.number
+        return Number(question.number)
     } else {
         return Number(number)
     }
@@ -29,7 +29,8 @@ module.exports = async function fetchSubmissionService(data){
     const code = data.code
     const status = Number(data.status)
     const rank = data.rank 
-    const number = await numberCheck(data.number, questionId)
+    const number = Number(data.number)
+    // await numberCheck(data.number, questionId)
 
     if(isValidObjectId(userId) === true){
         UserModel.findOne({_id: data.userId})
