@@ -37,7 +37,9 @@ module.exports = async function getHistoryService(userId) {
             }
             items.push(item)
         }
-        // items.splice(20, items.length - 20)
+        if(items.length > 20) {
+            items.splice(20, items.length - 20)
+        }
         return items
     }
 }

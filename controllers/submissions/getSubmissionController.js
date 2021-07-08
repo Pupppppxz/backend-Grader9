@@ -5,6 +5,9 @@ module.exports = async function getSubmissionController(req, res){
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type')
     res.setHeader('Access-Control-Allow-Credentials', true)
+    if(!req.query.userId) {
+        return res.status(400).json({Error: "Hello world!"})
+    }
     const submission = await getSubmissionService(req.query.userId)
     return res.send(submission).status(200)
 }

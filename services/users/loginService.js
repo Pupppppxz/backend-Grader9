@@ -6,22 +6,19 @@ const { UserModel } = require('../../models')
 const dotenv = require('dotenv')
 dotenv.config()
 
-module.exports = function loginUser(req, res) {
-    const { err, isValid } = validatorLogin(req.body)
-    const username = req.body.username
-    const password = req.body.password
-    
-    if(!isValid){
-        return res.status(400).json(err)
-    }
-
-        UserModel.findOne({username})
-        .then(user => {
-            if(!user){
-                return res.status(400).json({usernameNotFound: "Username not found"})
-            }
-
-            //check password
+module.exports = async function loginUser(req, res) {
+    try {
+        const { err, isValid } = validatorLogin(req.body)
+        const username = req.body.username
+        const password = req.body.password
+        
+        if(!isValid){
+            return res.status(400)
+            .json({error: "Error!"})
+        }
+        
+        const user = await UserModel.findOne({username})
+        if(user){
             bcrypt.compare(password, user.password)
             .then(isMatch => {
                 if(isMatch){
@@ -51,9 +48,14 @@ module.exports = function loginUser(req, res) {
                 } else {
                     return res
                         .status(400)
-                        .json({ passwordincorrect: "Password incorrect"})
+                        .json({error: "Error!"})
                 }
             })
-    })
+        } else {
+            return res.status(400).json({error: "Error!"})
+        }
+    } catch (err) {
+        return res.status(400).json({error: "Error!"})
+    }
 }
 

@@ -3,14 +3,14 @@ const { QuestionModel, SubmitModel } = require('../../models')
 const getQuestion = async function(){
     const question = await QuestionModel
                         .find({})
-                        .sort({number: 'asc'})
+                        .sort({_id: 'asc'})
     return question
 }
 
 const getSubmit = async function(id){
     const question = await SubmitModel
                         .find({userId: id})
-                        .sort({number: 'asc'})
+                        .sort({questionId: 'asc'})
     if(question.length === 0){
         return 0
     } else {
@@ -29,39 +29,57 @@ const compareItem = function(a, b) {
 }
 
 module.exports = async function getQuestionService(userId){
-    const [question, submit] = await Promise.all([
-        getQuestion(),
-        getSubmit(userId)
-    ])
-    let item = []
-    let count = 0
-    console.log(submit);
-    const testCase = "-"
-    if(submit.length > 0){
-        for (let i = 0; i < question.length; i++) {
-            if(count < submit.length) {
-                if(submit[count].questionId == question[i]._id) {
-                    console.log("1");
-                    let items = {
-                        _id: question[i]._id,
-                        title: question[i].title, 
-                        status: submit[count].status,
-                        rank: question[i].rank,
-                        unit: question[i].unit,
-                        number: question[i].number,
-                        result: submit[count].result,
-                        finished: question[i].finished
+    try {
+        if(!userId) {
+            return {Error: "Error!"}
+        }
+        const [question, submit] = await Promise.all([
+            getQuestion(),
+            getSubmit(userId)
+        ])
+        let item = []
+        let count = 0
+        console.log(submit.length);
+        const testCase = "-"
+        if(submit.length > 0){
+            for (let i = 0; i < question.length; i++) {
+                if(count < submit.length) {
+                    if(submit[count].questionId == question[i]._id) {
+                        console.log("11111111111");
+                        let items = {
+                            _id: question[i]._id,
+                            title: question[i].title, 
+                            status: submit[count].status,
+                            rank: question[i].rank,
+                            unit: question[i].unit,
+                            number: question[i].number,
+                            result: submit[count].result,
+                            finished: question[i].finished
+                        }
+                        item.push(items)
+                        count = count + 1
+                    } else {
+                        // console.log("2");
+                        const input = question[i].input.split("$.$")
+                        let items = {
+                            _id: question[i]._id,
+                            title: question[i].title, 
+                            status: question[i].status,
+                            rank: question[i].rank, 
+                            unit: question[i].unit,
+                            number: question[i].number,
+                            result: testCase.repeat(input.length),
+                            finished: question[i].finished
+                        }
+                        item.push(items)
                     }
-                    item.push(items)
-                    count = count + 1
                 } else {
-                    console.log("2");
                     const input = question[i].input.split("$.$")
                     let items = {
                         _id: question[i]._id,
                         title: question[i].title, 
                         status: question[i].status,
-                        rank: question[i].rank, 
+                        rank: question[i].rank,
                         unit: question[i].unit,
                         number: question[i].number,
                         result: testCase.repeat(input.length),
@@ -69,7 +87,9 @@ module.exports = async function getQuestionService(userId){
                     }
                     item.push(items)
                 }
-            } else {
+            }
+        } else {
+            for (let i = 0; i < question.length; i++) {
                 const input = question[i].input.split("$.$")
                 let items = {
                     _id: question[i]._id,
@@ -84,22 +104,9 @@ module.exports = async function getQuestionService(userId){
                 item.push(items)
             }
         }
-    } else {
-        for (let i = 0; i < question.length; i++) {
-            const input = question[i].input.split("$.$")
-            let items = {
-                _id: question[i]._id,
-                title: question[i].title, 
-                status: question[i].status,
-                rank: question[i].rank,
-                unit: question[i].unit,
-                number: question[i].number,
-                result: testCase.repeat(input.length),
-                finished: question[i].finished
-            }
-            item.push(items)
-        }
+        item.sort( compareItem )
+        return item
+    }catch(err){
+        return err
     }
-    item.sort( compareItem )
-    return item
 }

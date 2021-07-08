@@ -1,6 +1,15 @@
 const {deleteUserService} = require('../../services/users')
+const { UserModel } = require('../../models')
 
 module.exports = async function deleteUserController(req, res) {
-    await deleteUserService(req.query.id)
-    return res.sendStatus(200)
+    try {
+        const user = await UserModel.findOne({_id: req.query.id})
+        if(!user) {
+            return res.status(400).json({error: "Error!"})
+        }
+        await deleteUserService(req.query.id)
+        return res.sendStatus(200)
+    } catch (err) {
+        log.log(err)
+    }
 }

@@ -81,10 +81,6 @@ const QuestionSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    opened: {
-        type: Number,
-        default: 0
-    }
 }, {
     timestamps: { currentTime: Date.now }
 })

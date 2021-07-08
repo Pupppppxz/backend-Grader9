@@ -1,6 +1,5 @@
-const { addQuestionService, updateQuestionService } = require('../../services/questions')
+const { addQuestionService } = require('../../services/questions')
 const { QuestionModel } = require('../../models')
-const fetch = require('node-fetch')
 const dotenv = require('dotenv')
 dotenv.config()
 
