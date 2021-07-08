@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const key = require('../../config/key')
+// const key = require('../../config/key')
 const {validatorLogin} = require('../../validation') 
 const { UserModel } = require('../../models')
 
@@ -31,7 +31,7 @@ module.exports = function loginUser(req, res) {
                     //sign token
                     jwt.sign(
                         payload,
-                        key.secretOrKey,
+                        process.env.SECRET_KEY,
                         {
                             expiresIn: '1d' 
                         },

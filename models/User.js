@@ -25,10 +25,6 @@ const UserSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
-  pass: {
-    type: Number,
-    default: 0
-  },
   profilePicture: {
     type: String,
     default: "undefined"
@@ -44,14 +40,6 @@ const UserSchema = new mongoose.Schema({
   finished: {
     type: Number,
     default: 0
-  },
-  email: {
-    type: String,
-    default: ""
-  },
-  resetNumber: {
-    type: String,
-    default: ""
   }
 }, {
   timestamps: { currentTime: Date.now }
