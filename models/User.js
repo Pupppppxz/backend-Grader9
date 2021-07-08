@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema({
   },
   userStatus: {
     type: String,
-    default: 'user'
+    default: "user"
   },
   hash: {
     type: Boolean,
