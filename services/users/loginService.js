@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken')
 // const key = require('../../config/key')
 const {validatorLogin} = require('../../validation') 
 const { UserModel } = require('../../models')
+const dotenv = require('dotenv')
+dotenv.config()
 
 module.exports = function loginUser(req, res) {
     const { err, isValid } = validatorLogin(req.body)
