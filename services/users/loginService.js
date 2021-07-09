@@ -14,7 +14,7 @@ module.exports = async function loginUser(req, res) {
         const gg = req.body.password
         const check = g.split("")
         const check2 = gg.split("")
-        if(check.length === 32 && check2.length === 32) {
+        if(check.length === 65 && check2.length === 65) {
             return res.status(400).json({error: "Error1!"})
         }
         const username = decrypt(req.body.username)
@@ -48,11 +48,11 @@ module.exports = async function loginUser(req, res) {
                         (err, token) => {
                             res.json({
                                 success: true,
-                                token: encrypt("Bearer " + token),
-                                status: encrypt(user.userStatus),
-                                username: encrypt(user.username),
-                                nickName: encrypt(user.nickName),
-                                id: encrypt(user._id)
+                                token: "Bearer " + token,
+                                status: user.userStatus,
+                                username: user.username,
+                                nickName: user.nickName,
+                                id: user._id
                             })
                         }
                     )
