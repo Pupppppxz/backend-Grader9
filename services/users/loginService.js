@@ -3,8 +3,13 @@ const jwt = require('jsonwebtoken')
 const {validatorLogin} = require('../../validation') 
 const { UserModel } = require('../../models')
 const { encrypt, decrypt } = require('../../middleware/encode')
+const dotenv = require('dotenv')
+dotenv.config()
+
 module.exports = async function loginUser(req, res) {
     try {
+        console.log(req.body.username);
+        console.log(req.body.password);
         const g = req.body.username
         const gg = req.body.password
         const check = g.split("")
@@ -14,6 +19,8 @@ module.exports = async function loginUser(req, res) {
         }
         const username = decrypt(req.body.username)
         const password = decrypt(req.body.password)
+        console.log(username);
+        console.log(password);
         const { err, isValid } = validatorLogin(req.body)
         
         if(!isValid){
