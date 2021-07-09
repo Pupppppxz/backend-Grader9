@@ -8,8 +8,8 @@ dotenv.config()
 
 module.exports = async function loginUser(req, res) {
     try {
-        console.log(req.body.username);
-        console.log(req.body.password);
+        console.log("gg", req.body.username);
+        console.log("ggg", req.body.password);
         const g = req.body.username
         const gg = req.body.password
         const check = g.split("")
