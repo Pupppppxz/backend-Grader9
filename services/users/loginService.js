@@ -1,23 +1,27 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-// const key = require('../../config/key')
 const {validatorLogin} = require('../../validation') 
 const { UserModel } = require('../../models')
-const dotenv = require('dotenv')
-dotenv.config()
-
+const { encrypt, decrypt } = require('../../middleware/encode')
 module.exports = async function loginUser(req, res) {
     try {
+        const _ = req.body.username
+        const __ = req.body.password
+        const check = _.split("")
+        const check2 = __.split("")
+        if(check.length === 32 && check2.length === 32) {
+            return res.status(400).json({error: "Error!"})
+        }
+        const username = decrypt(req.body.username)
+        const password = decrypt(req.body.password)
         const { err, isValid } = validatorLogin(req.body)
-        const username = req.body.username
-        const password = req.body.password
         
         if(!isValid){
             return res.status(400)
             .json({error: "Error!"})
         }
         
-        const user = await UserModel.findOne({username})
+        const user = await UserModel.findOne({username: username})
         if(user){
             bcrypt.compare(password, user.password)
             .then(isMatch => {
@@ -37,11 +41,11 @@ module.exports = async function loginUser(req, res) {
                         (err, token) => {
                             res.json({
                                 success: true,
-                                token: "Bearer " + token,
-                                status: user.userStatus,
-                                username: user.username,
-                                nickName: user.nickName,
-                                id: user._id
+                                token: encrypt("Bearer " + token),
+                                status: encrypt(user.userStatus),
+                                username: encrypt(user.username),
+                                nickName: encrypt(user.nickName),
+                                id: encrypt(user._id)
                             })
                         }
                     )

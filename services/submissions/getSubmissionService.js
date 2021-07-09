@@ -1,4 +1,4 @@
-const {SubmitCodeModel, SubmitModel} = require('../../models')
+const { SubmitModel } = require('../../models')
 const moment = require('moment')
 
 const getSubmit = async function(userId) {

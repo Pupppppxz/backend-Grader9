@@ -1,5 +1,4 @@
 const { UserModel } = require('../../models')
-const dotenv = require('dotenv')
 const updateSubmissionService = require('./updateSubmissionService')
 const checkSubmissionExistService = require('./checkSubmissionExistService')
 const insertSubmissionCodeService = require('./insertSubmissionCodeService')
@@ -10,16 +9,6 @@ const getScoreByQuestionService = require('../questions/getScoreByQuestionServic
 const graderGetQuestionService = require('../questions/graderGetQuestionService')
 const isValidObjectId = require('../users/isValidObjectId')
 const addHistoryService = require('./addHistoryService')
-dotenv.config()
-
-const numberCheck = async (number, questionId) => {
-    if(number === undefined || number === null) {
-        const question = await graderGetQuestionService(questionId)
-        return Number(question.number)
-    } else {
-        return Number(number)
-    }
-}
 
 module.exports = async function fetchSubmissionService(data){
     
