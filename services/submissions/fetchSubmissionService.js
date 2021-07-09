@@ -42,12 +42,12 @@ module.exports = async function fetchSubmissionService(data){
     } else {
         return {InvalidUserError: "Invalid userId"}
     }
-    const [oldSubmit, checkExist, totalScore] = await Promise.all([
-        getOldSubmission(userId, questionId), 
-        checkSubmissionExistService(userId, questionId), 
-        getScoreByQuestionService(result, rank)
-    ])
     try {
+        const [oldSubmit, checkExist, totalScore] = await Promise.all([
+            getOldSubmission(userId, questionId), 
+            checkSubmissionExistService(userId, questionId), 
+            getScoreByQuestionService(result, rank)
+        ])
         if(checkExist === true) {
             console.log("S1");
             await updateSubmissionService(userId, questionId, code, result, status, totalScore, oldSubmit.score, oldSubmit.status)
@@ -58,11 +58,11 @@ module.exports = async function fetchSubmissionService(data){
                 insertSubmissionCodeService(userId, questionId, code, status)
             ])
         }
+        await addHistoryService(userId, questionId, status, totalScore, result)
     } catch (err) {
         console.log(err)
     } finally {
         await updateUserCommitService(userId)
-        await addHistoryService(userId, questionId, status, totalScore, result)
         return data
     }
 }

@@ -1,7 +1,7 @@
-const { SubmitCodeModel } = require('../../models')
+const { SubmitModel } = require('../../models')
 
 module.exports = async function checkSubmissionExistService(uId, qId) {
-    const submissions = await SubmitCodeModel.findOne({userId: uId, questionId: qId})
+    const submissions = await SubmitModel.findOne({userId: uId, questionId: qId})
     if(submissions === null) {
         return false
     }
