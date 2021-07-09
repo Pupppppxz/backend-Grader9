@@ -5,10 +5,10 @@ const { UserModel } = require('../../models')
 const { encrypt, decrypt } = require('../../middleware/encode')
 module.exports = async function loginUser(req, res) {
     try {
-        const _ = req.body.username
-        const __ = req.body.password
-        const check = _.split("")
-        const check2 = __.split("")
+        const g = req.body.username
+        const gg = req.body.password
+        const check = g.split("")
+        const check2 = gg.split("")
         if(check.length === 32 && check2.length === 32) {
             return res.status(400).json({error: "Error!"})
         }
