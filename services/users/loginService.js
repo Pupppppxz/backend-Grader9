@@ -10,7 +10,7 @@ module.exports = async function loginUser(req, res) {
         const check = g.split("")
         const check2 = gg.split("")
         if(check.length === 32 && check2.length === 32) {
-            return res.status(400).json({error: "Error!"})
+            return res.status(400).json({error: "Error1!"})
         }
         const username = decrypt(req.body.username)
         const password = decrypt(req.body.password)
@@ -18,7 +18,7 @@ module.exports = async function loginUser(req, res) {
         
         if(!isValid){
             return res.status(400)
-            .json({error: "Error!"})
+            .json({error: "Error2!"})
         }
         
         const user = await UserModel.findOne({username: username})
@@ -52,14 +52,14 @@ module.exports = async function loginUser(req, res) {
                 } else {
                     return res
                         .status(400)
-                        .json({error: "Error!"})
+                        .json({error: "Error3!"})
                 }
             })
         } else {
-            return res.status(400).json({error: "Error!"})
+            return res.status(400).json({error: "Error4!"})
         }
     } catch (err) {
-        return res.status(400).json({error: "Error!"})
+        return res.status(400).json({error: "Error5!"})
     }
 }
 
