@@ -6,10 +6,13 @@ const createSubmissionService = require('./createSubmissionService')
 const updateUserCommitService = require('./updateUserCommitService')
 const getOldSubmission = require('./getOldSubmission')
 const getScoreByQuestionService = require('../questions/getScoreByQuestionService')
-const graderGetQuestionService = require('../questions/graderGetQuestionService')
 const isValidObjectId = require('../users/isValidObjectId')
 const addHistoryService = require('./addHistoryService')
 
+const getUserFunc = async (userId) => {
+    const {group} = await UserModel.findOne({_id: userId}).select(['group'])
+    return group
+}
 module.exports = async function fetchSubmissionService(data){
     
     const result = data.result
@@ -19,7 +22,6 @@ module.exports = async function fetchSubmissionService(data){
     const status = Number(data.status)
     const rank = data.rank 
     const number = Number(data.number)
-    // await numberCheck(data.number, questionId)
 
     if(isValidObjectId(userId) === true){
         UserModel.findOne({_id: data.userId})
@@ -32,18 +34,19 @@ module.exports = async function fetchSubmissionService(data){
         return {InvalidUserError: "Invalid userId"}
     }
     try {
-        const [oldSubmit, checkExist, totalScore] = await Promise.all([
+        const [oldSubmit, checkExist, totalScore, group] = await Promise.all([
             getOldSubmission(userId, questionId), 
             checkSubmissionExistService(userId, questionId), 
-            getScoreByQuestionService(result, rank)
+            getScoreByQuestionService(result, rank),
+            getUserFunc(userId)
         ])
         if(checkExist === true) {
             console.log("S1");
-            await updateSubmissionService(userId, questionId, code, result, status, totalScore, oldSubmit.score, oldSubmit.status)
+            await updateSubmissionService(userId, questionId, code, result, status, totalScore, oldSubmit.score, oldSubmit.status, group)
         } else if (checkExist === false) {
             console.log("S2");
             await Promise.all([
-                createSubmissionService(userId, questionId, status, result, totalScore, number),
+                createSubmissionService(userId, questionId, status, result, totalScore, number, group),
                 insertSubmissionCodeService(userId, questionId, code, status)
             ])
         }

@@ -8,7 +8,7 @@ const check = function(result) {
     if((["C","L","F","Y","X","O","N","B"]).includes(result) === false) return 1
     if((["C","L","F","Y","X","O","N","B"]).includes(result) === true) return 2
 }
-module.exports = async function updateSubmissionService(userId, questionId, code, result, status, totalScore, oldScore, oldStatus) {
+module.exports = async function updateSubmissionService(userId, questionId, code, result, status, totalScore, oldScore, oldStatus, group) {
     let checked = check(result)
     try {
         if(checked === 1) {
@@ -20,18 +20,32 @@ module.exports = async function updateSubmissionService(userId, questionId, code
                 await updateUserScoreService(userId, totalScore, oldScore, "plus")
             } else if(oldStatus < status && status === 2) {
                 console.log("5");
-                await Promise.all([
-                    updateUserScoreService(userId, totalScore, oldScore, "plus"),
-                    addSuccessSubmissionService(questionId, "plus"),
-                    addFinishedSubmissionService(userId, "plus")
-                ])
+                if(group < 5) {
+                    await Promise.all([
+                        updateUserScoreService(userId, totalScore, oldScore, "plus"),
+                        addSuccessSubmissionService(questionId, "plus"),
+                        addFinishedSubmissionService(userId, "plus")
+                    ])
+                } else {
+                    await Promise.all([
+                        updateUserScoreService(userId, totalScore, oldScore, "plus"),
+                        addFinishedSubmissionService(userId, "plus")
+                    ])
+                }
             } else if (oldStatus > status && oldStatus === 2) {
                 console.log("6");
-                await Promise.all([
-                    addFinishedSubmissionService(userId, "minus"),
-                    addSuccessSubmissionService(questionId, "minus"),
-                    updateUserScoreService(userId, totalScore, oldScore, "minus")
-                ])
+                if(group < 5) {
+                    await Promise.all([
+                        addFinishedSubmissionService(userId, "minus"),
+                        addSuccessSubmissionService(questionId, "minus"),
+                        updateUserScoreService(userId, totalScore, oldScore, "minus")
+                    ])
+                } else {
+                    await Promise.all([
+                        addFinishedSubmissionService(userId, "minus"),
+                        updateUserScoreService(userId, totalScore, oldScore, "minus")
+                    ])
+                }
             } else if(oldStatus > status && oldStatus !== 2) {
                 console.log("7");
                 await updateUserScoreService(userId, totalScore, oldScore, "minus")

@@ -8,15 +8,17 @@ const check = function(result) {
     if((["C","L","F","Y","X","O","N","B"]).includes(result) === true) return 2
 }
 
-module.exports = async function createSubmissionService(userId, questionId, status, result, totalScore, number){
+module.exports = async function createSubmissionService(userId, questionId, status, result, totalScore, number, group){
     let checked = check(result)
     try {
         if(checked === 1) {
-            if (status === 2) {
+            if (status === 2 && group < 5) {
                 await Promise.all([
                     addSuccessSubmissionService(questionId, "plus"),
                     addFinishedSubmissionService(userId, "plus")
                 ])
+            } else {
+                addFinishedSubmissionService(userId, "plus")
             }
             await Promise.all([
                 addScoreToUserService(userId, totalScore),
