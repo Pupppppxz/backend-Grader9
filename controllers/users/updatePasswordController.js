@@ -9,13 +9,19 @@ module.exports = async function updatePasswordController(req, res) {
     const newPassword = decrypt(req.body.password)
     const confirmPassword = decrypt(req.body.password2)
     const oldPassword = decrypt(req.body.oldPassword)
+    const data = {
+      password: newPassword, 
+      password2: confirmPassword, 
+      oldPassword: oldPassword
+    }
+    console.log("data", data);
     const user = await UserModel.findOne({_id: req.params.id})
     if(!user){
       return res.status(401).json({invalidUser: "User does not exist"})
     } else {
       const validPassword = await bcrypt.compare(oldPassword, user.password)
       if(validPassword) {
-        const { err, isValid } = await validatePassword({password: newPassword, password2: confirmPassword, oldPassword: oldPassword})
+        const { err, isValid } = await validatePassword(data)
         if(!isValid){
           return res.status(401).json(err)
         }
