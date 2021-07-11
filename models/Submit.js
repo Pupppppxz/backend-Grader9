@@ -3,11 +3,11 @@ const mongoose = require('mongoose')
 const SubmitSchema = new mongoose.Schema({
     userId: {
         type: String,
-        require: true
+        required: true
     },
     questionId: {
-        type: String,
-        require: true
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
     },
     status: {
         type: Number,
@@ -15,15 +15,15 @@ const SubmitSchema = new mongoose.Schema({
     },
     result: {
         type: String,
-        default: "---"
+        required: true
     },
     score: {
         type: Number,
-        require: true
+        required: true
     },
     number: {
         type: Number,
-        require: true
+        required: true
     }
 }, {
     timestamps: { currentTime: Date.now }

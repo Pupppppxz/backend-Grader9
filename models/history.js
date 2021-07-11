@@ -3,15 +3,15 @@ const mongoose = require('mongoose')
 const historySchema = mongoose.Schema({
     userId: {
         type: String,
-        require: true
+        required: true
     },
     questionId: {
         type: String,
-        require: true
+        required: true
     },
     status: {
         type: Number,
-        require: true
+        required: true
     },
     result: {
         type: String,
@@ -19,7 +19,7 @@ const historySchema = mongoose.Schema({
     },
     score: {
         type: Number,
-        require: true
+        required: true
     },
 }, {
     timestamps: { currentTime: Date.now }

@@ -3,19 +3,19 @@ const mongoose = require('mongoose')
 const SubmitCodeSchema = new mongoose.Schema({
     userId: {
         type: String,
-        require: true
+        required: true
     },
     questionId: {
         type: String,
-        require: true
+        required: true
     },
     code: {
         type: String,
-        require: true
+        required: true
     },
     status: {
         type: Number,
-        require: true
+        required: true
     }
 }, {
     timestamps: { currentTime: Date.now }
