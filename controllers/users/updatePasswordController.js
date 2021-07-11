@@ -15,7 +15,7 @@ module.exports = async function updatePasswordController(req, res) {
     } else {
       const validPassword = await bcrypt.compare(oldPassword, user.password)
       if(validPassword) {
-        const { err, isValid } = await validatePassword({newPassword, confirmPassword, oldPassword})
+        const { err, isValid } = await validatePassword({password: newPassword, password2: confirmPassword, oldPassword: oldPassword})
         if(!isValid){
           return res.status(401).json(err)
         }

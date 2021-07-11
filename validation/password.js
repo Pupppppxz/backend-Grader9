@@ -4,6 +4,9 @@ const isEmpty = require('is-empty')
 module.exports = function validatePassword(data) {
     let err = {}
 
+    console.log("gg", data.oldPassword);
+    console.log("gg", data.password);
+    console.log("gg", data.password2);
     data.oldPassword = !isEmpty(data.oldPassword) ? data.oldPassword : ""
     data.password = !isEmpty(data.password) ? data.password : ""
     data.password2 = !isEmpty(data.password2) ? data.password2 : ""
