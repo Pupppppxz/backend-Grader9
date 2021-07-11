@@ -26,7 +26,7 @@ module.exports = async function getHistoryService(userId) {
         const history = await getHistory(userId)
         let items = []
         if(history === 0) {
-            return {notHaveSubmission: "Not have submission"}
+            return null
         } else {
             if(history.length > 20) {
                 for(i = 20; i < history.length; i++){
