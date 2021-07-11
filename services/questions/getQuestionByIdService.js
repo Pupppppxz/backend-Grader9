@@ -1,4 +1,5 @@
 const { QuestionModel, SubmitModel } = require('../../models')
+const { getSubmissionCodeService } = require('../submissions')
 const moment = require('moment')
 
 const getQuestion = async function(id){
@@ -17,14 +18,11 @@ const getSubmit = async function(id, qId){
     }
 }
 
-const formatTime = async (date, to) => {
-    return new Date((typeof date === 'string' ? new Date(date) : date).toLocaleString("en-us", {timeZone: to}))
-}
-
 module.exports = async function getQuestionByIdService(userId, questionId) {
-    const [question, submit] = await Promise.all([
+    const [question, submit, submitCode] = await Promise.all([
         getQuestion(questionId),
-        getSubmit(userId, questionId)
+        getSubmit(userId, questionId),
+        getSubmissionCodeService(userId, questionId)
     ])
     const testCase = "-"
     let item = []
@@ -51,7 +49,8 @@ module.exports = async function getQuestionByIdService(userId, questionId) {
             number: question.number,
             result: submit.result, 
             finished: question.finished,
-            time: time.utcOffset('+0700').format('l') + " " + time.utcOffset('+0700').format('LTS')
+            time: time.utcOffset('+0700').format('l') + " " + time.utcOffset('+0700').format('LTS'),
+            code: submitCode.code
         }
         item.push(items)
     } else {
@@ -76,7 +75,8 @@ module.exports = async function getQuestionByIdService(userId, questionId) {
             q_output: question.q_output,
             number: question.number,
             result: testCase.repeat(input.length),
-            finished: question.finished
+            finished: question.finished,
+            code: null,
         }
         item.push(items)
     }
