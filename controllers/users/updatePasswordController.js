@@ -7,6 +7,7 @@ const { decrypt } = require('../../middleware/encode')
 module.exports = async function updatePasswordController(req, res) {
   try {
     const newPassword = decrypt(req.body.password)
+    const confirmPassword = decrypt(req.body.password2)
     const oldPassword = decrypt(req.body.oldPassword)
     const user = await UserModel.findOne({_id: req.params.id})
     if(!user){
@@ -14,7 +15,7 @@ module.exports = async function updatePasswordController(req, res) {
     } else {
       const validPassword = await bcrypt.compare(oldPassword, user.password)
       if(validPassword) {
-        const { err, isValid } = await validatePassword(req.body)
+        const { err, isValid } = await validatePassword({newPassword, confirmPassword, oldPassword})
         if(!isValid){
           return res.status(401).json(err)
         }
