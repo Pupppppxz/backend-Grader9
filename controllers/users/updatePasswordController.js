@@ -2,10 +2,11 @@ const {updatePasswordService} = require('../../services/users')
 const {validatePassword} = require('../../validation')
 const bcrypt = require('bcryptjs')
 const { UserModel } = require('../../models')
+const { decrypt } = require('../../middleware/encode')
 
 module.exports = async function updatePasswordController(req, res) {
-  const newPassword = req.body.password
-  const oldPassword = req.body.oldPassword
+  const newPassword = decrypt(req.body.password)
+  const oldPassword = decrypt(req.body.oldPassword)
   const user = await UserModel.findOne({_id: req.params.id})
   if(!user){
     return res.status(401).json({invalidUser: "User does not exist"})

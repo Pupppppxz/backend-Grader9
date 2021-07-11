@@ -2,25 +2,15 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const {validatorLogin} = require('../../validation') 
 const { UserModel } = require('../../models')
-const { encrypt, decrypt } = require('../../middleware/encode')
+const { decrypt } = require('../../middleware/encode')
 const dotenv = require('dotenv')
 dotenv.config()
 
 module.exports = async function loginUser(req, res) {
     try {
-        // console.log("gg", req.body.username);
-        // console.log("ggg", req.body.password);
-        // const g = req.body.username
-        // const gg = req.body.password
-        // const check = g.split("")
-        // const check2 = gg.split("")
-        // if(check.length === 65 && check2.length === 65) {
-        //     return res.status(400).json({error: "Error1!"})
-        // }
         const username = decrypt(req.body.username)
         const password = decrypt(req.body.password)
-        console.log(username);
-        console.log(password);
+        const month = 60 * 60 * 24 * 30
         const { err, isValid } = validatorLogin(req.body)
         
         if(!isValid){
@@ -43,7 +33,7 @@ module.exports = async function loginUser(req, res) {
                         payload,
                         process.env.SECRET_KEY,
                         {
-                            expiresIn: '1d' 
+                            expiresIn: month 
                         },
                         (err, token) => {
                             res.json({

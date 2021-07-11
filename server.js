@@ -6,7 +6,6 @@ const cors = require('cors')
 const app = express()
 const dotenv = require('dotenv')
 dotenv.config()
-const { decrypt } = require('./middleware/encode')
 
 app.use(cors())
 app.use(express.json())
@@ -24,8 +23,6 @@ mongoose.connect(process.env.MONGO_URL,{
     useFindAndModify: false
 }).then(() => {
     console.log(`Mongo connected to database`)
-    // console.log(decrypt("c04ce3aa0f701779a8637d116511462f:0ad769742757d41f1c5a13bd743fbddf"))
-    // console.log(decrypt("e145f0d97fbd87e1b0768de073813c74:63d22a7f52085bebd3485aef641d4fdb"))
 }).catch(err => console.log(err))
 
 require('./config/passport')(passport)

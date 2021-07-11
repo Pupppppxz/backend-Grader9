@@ -7,13 +7,13 @@ module.exports = function registerUser(req, res) {
         const { err, isValid } = validatorRegister(req.body)
 
         if (!isValid) {
-            return res.status(400).json(err);
+            return res.status(400).json({Error: "Hello world!"});
         }
 
         UserModel.findOne({username: req.body.username})
         .then(user => {
             if (user) {
-                return res.status(400)
+                return res.status(400).json({Error: "Hello world!"});
                 // .json({ username: "Username already exists" })
             } else {
                 const nickName = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5)
@@ -30,7 +30,7 @@ module.exports = function registerUser(req, res) {
                         newUser.password = hash
                         newUser
                             .save()
-                            .then(user => res.json(user))
+                            .then(() => res.json({yiamGood: "Yiam good!"}))
                             .catch(err => console.log(err))
                     })
                 })
