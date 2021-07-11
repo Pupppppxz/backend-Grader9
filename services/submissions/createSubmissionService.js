@@ -4,8 +4,8 @@ const addFinishedSubmissionService = require('./addFinishedSubmissionService')
 const addSuccessSubmissionService = require('./addSuccessSubmissionService')
 
 const check = function(result) {
-    if((["C","L","F","Y","X","O","N","B"]).includes(result) === false) return 1
-    if((["C","L","F","Y","X","O","N","B"]).includes(result) === true) return 2
+    if((["C","L","F","Y","X","O","B"]).includes(result) === false) return 1
+    if((["C","L","F","Y","X","O","B"]).includes(result) === true) return 2
 }
 
 module.exports = async function createSubmissionService(userId, questionId, status, result, totalScore, number, group){
@@ -22,12 +22,12 @@ module.exports = async function createSubmissionService(userId, questionId, stat
             }
             await Promise.all([
                 addScoreToUserService(userId, totalScore),
-                insertSubmissionService(userId, questionId, status, result, totalScore, number)
+                insertSubmissionService(userId, questionId, status, result, totalScore)
             ])
         } else if(checked === 2) {
             await insertSubmissionService(userId, questionId, status, result, 0)
         }
     } catch (error) {
-        console.log(error)
+        return {Error: error}
     }
 }
