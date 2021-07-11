@@ -33,5 +33,6 @@ router.post('/submit', (req, res) => submissionController.fetchSubmissionControl
 router.get('/history', checkJwt, (req, res) => submissionController.getHistoryController(req, res))
 
 router.get('/leader', (req, res) => adminController.getLeaderController(req, res))
+router.put('/asefefd', (req, res) => adminController.forgotPasswordController(req, res))
 
 module.exports = router
