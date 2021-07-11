@@ -6,7 +6,7 @@ const SubmitSchema = new mongoose.Schema({
         required: true
     },
     questionId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         required: true
     },
     status: {
