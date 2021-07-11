@@ -17,7 +17,7 @@ const deleteHistory = async (id) => {
 }
 
 const getQuestion = async (questionId) => {
-    const question = await QuestionModel.find({_id: questionId}).select(["title","question","number","rank","finished"])
+    const question = await QuestionModel.findOne({_id: questionId}).select(["title","finished"])
     return question
 }
 
@@ -34,13 +34,10 @@ module.exports = async function getHistoryService(userId) {
                 }
             }
             for(i = 0; i < history.length; i++) {
-                const question = await getQuestion(history[i].questionId)
+                const { title } = await getQuestion(history[i].questionId)
                 const time = moment(history[i].updatedAt)
                 let item = {
-                    title: question.title,
-                    question: question.question,
-                    number: question.number,
-                    rank: question.rank,
+                    title: title,
                     result: history[i].result,
                     score: history[i].score,
                     status: history[i].status,
