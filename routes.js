@@ -9,7 +9,7 @@ const checkJwt = require('./middleware/checkJwt')
 
 router.post('/login', (req, res) => services.loginService(req, res))
 router.post('/register', (req, res) => services.registerService(req, res))
-router.put('/user/:id', checkJwt, (req, res) => userController.updateUserController(req, res))
+// router.put('/user/:id', checkJwt, (req, res) => userController.updateUserController(req, res))
 router.put('/password/:id', checkJwt, (req, res) => userController.updatePasswordController(req, res))
 // router.get('/all-users', checkJwt, (req, res) => userController.getUsersController(req, res))
 router.get('/user', checkJwt, (req, res) => userController.getUserController(req, res))
