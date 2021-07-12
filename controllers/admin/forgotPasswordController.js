@@ -1,12 +1,13 @@
 const bcrypt = require('bcryptjs')
 const { decrypt } = require('../../middleware/encode')
 const { UserModel } = require('../../models')
+const sha256 = require('sha256')
 const dotenv = require('dotenv')
 dotenv.config()
 
 module.exports = async function forgotPasswordController(req, res) {
     const p1 = decrypt(req.query.p1)
-    const p2 = req.query.p2
+    const p2 = sha256(req.query.p2)
     const id = req.query.userId
     try {
         if(p1 === process.env.A_PASS && req.headers.ggNewPassword === process.env.CONFIRM) {
