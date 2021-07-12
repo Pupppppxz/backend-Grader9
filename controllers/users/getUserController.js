@@ -9,6 +9,7 @@ module.exports = async function getUserController(req, res) {
     res.setHeader('Access-Control-Allow-Credentials', true)
     const token = req.headers.authorization.split(" ")[1]
     const user = jwt.verify(token, process.env.SECRET_KEY)
+    console.log("user: ",user);
     if(!req.query.id || user._id !== req.query.id) {
         return res.status(400).json({Error: "Hello world!"})
     }
