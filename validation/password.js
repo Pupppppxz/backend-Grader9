@@ -4,9 +4,6 @@ const isEmpty = require('is-empty')
 module.exports = function validatePassword(data) {
     let err = {}
 
-    console.log("gg", data.oldPassword);
-    console.log("gg", data.password);
-    console.log("gg", data.password2);
     data.oldPassword = !isEmpty(data.oldPassword) ? data.oldPassword : ""
     data.password = !isEmpty(data.password) ? data.password : ""
     data.password2 = !isEmpty(data.password2) ? data.password2 : ""
@@ -23,7 +20,7 @@ module.exports = function validatePassword(data) {
         err.password2 = "Confirm password field is required"
     }
 
-    if(!Validator.isLength(data.password, {min: 8, max: 30})){
+    if(!Validator.isLength(data.password, {min: 8, max: 65})){
         err.password = "Password must be at least 8 charactor"
     }
 
