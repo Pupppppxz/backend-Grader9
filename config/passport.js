@@ -1,7 +1,6 @@
 const {Strategy} = require('passport-jwt')
 const {ExtractJwt} = require('passport-jwt')
 const {UserModel} = require('../models')
-// const keys = require('./key')
 const dotenv = require('dotenv')
 dotenv.config()
 

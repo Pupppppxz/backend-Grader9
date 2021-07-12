@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs')
 const {validatorRegister} = require('../../validation')
 const {UserModel} = require('../../models')
+const sha256 = require('sha256')
 
 module.exports = function registerUser(req, res) {
     try {
@@ -16,16 +17,16 @@ module.exports = function registerUser(req, res) {
                 return res.status(400).json({Error: "Hello world!"});
                 // .json({ username: "Username already exists" })
             } else {
-                const nickName = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5)
+                // const mySalt = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10)
                 const newUser = new UserModel({
                     username: req.body.username,
                     password: req.body.password,
                     group: req.body.group,
-                    nickName: nickName
+                    nickName: req.body.username
                 })
 
                 bcrypt.genSalt(10, (err, salt) => {
-                    bcrypt.hash(newUser.password, salt, (err, hash) => {
+                    bcrypt.hash(sha256(newUser.password), salt, (err, hash) => {
                         if(err) throw err
                         newUser.password = hash
                         newUser

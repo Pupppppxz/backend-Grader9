@@ -2,13 +2,12 @@ const {updatePasswordService} = require('../../services/users')
 const {validatePassword} = require('../../validation')
 const bcrypt = require('bcryptjs')
 const { UserModel } = require('../../models')
-const { decrypt } = require('../../middleware/encode')
 
 module.exports = async function updatePasswordController(req, res) {
   try {
-    const newPassword = decrypt(req.body.password)
-    const confirmPassword = decrypt(req.body.password2)
-    const oldPassword = decrypt(req.body.oldPassword)
+    const newPassword = req.body.password
+    const confirmPassword = req.body.password2
+    const oldPassword = req.body.oldPassword
     const data = {
       password: newPassword, 
       password2: confirmPassword, 
