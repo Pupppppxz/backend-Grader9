@@ -13,7 +13,6 @@ module.exports = async function updatePasswordController(req, res) {
       password2: confirmPassword, 
       oldPassword: oldPassword
     }
-    console.log("data", data);
     const user = await UserModel.findOne({_id: req.params.id})
     if(!user){
       return res.status(401).json({invalidUser: "User does not exist"})
