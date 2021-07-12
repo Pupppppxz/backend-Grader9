@@ -1,7 +1,6 @@
 const { QuestionModel, SubmitModel, SubmitCodeModel, UserModel, HistoryModel } = require('../../models')
 const { updateUserScoreService } = require('../submissions')
 const addFinishedSubmissionService = require('../submissions/addFinishedSubmissionService')
-const { setUpdateAll } = require('../../middleware/updated')
 
 const getSubmit = async function(id) {
     const submitArr = await SubmitModel.find({questionId: id})
@@ -55,8 +54,7 @@ module.exports = async function deleteQuestionService(id) {
         await Promise.all([
             deleteSubmitCode(id),
             deleteQuestion(id),
-            deleteHistory(id),
-            setUpdateAll()
+            deleteHistory(id)
         ])
     }
     return {Success: "deleted!"}
