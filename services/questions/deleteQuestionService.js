@@ -17,7 +17,7 @@ const deleteQuestion = async function(id){
 }
 
 const deleteSubmit = async function(id) {
-    const delSubmit = await SubmitModel.deleteOne({_id: id})
+    const delSubmit = await SubmitModel.deleteMany({questionId: id})
     return delSubmit
 }
 
@@ -45,7 +45,6 @@ module.exports = async function deleteQuestionService(id) {
                         ]) 
                     }
                 }
-                await deleteSubmit(submit[i]._id)
             }
         }      
     } catch (err) {
@@ -54,7 +53,8 @@ module.exports = async function deleteQuestionService(id) {
         await Promise.all([
             deleteSubmitCode(id),
             deleteQuestion(id),
-            deleteHistory(id)
+            deleteHistory(id),
+            deleteSubmit(id)
         ])
     }
     return {Success: "deleted!"}
