@@ -10,7 +10,7 @@ module.exports = async function forgotPasswordController(req, res) {
     const p2 = sha256(req.query.p2)
     const id = req.query.userId
     try {
-        if(p1 === process.env.A_PASS && req.headers.ggNewPassword === process.env.CONFIRM) {
+        if(p1 === process.env.A_PASS && req.query.p3 === process.env.CONFIRM) {
             const user = await UserModel.findOne({_id: id})
             if(!user) {
                 return res.status(400).json({Hello: "Hello world!!!"})
