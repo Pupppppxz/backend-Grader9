@@ -86,19 +86,23 @@ module.exports = async function getQuestionService(userId){
                 }
             }
         } else {
-            for (let i = 0; i < question.length; i++) {
-                const input = question[i].input.split("$.$")
-                let items = {
-                    _id: question[i]._id,
-                    title: question[i].title, 
-                    status: question[i].status,
-                    rank: question[i].rank,
-                    unit: question[i].unit,
-                    number: question[i].number,
-                    result: testCase.repeat(input.length),
-                    finished: question[i].finished
+            if(question.length > 0) {
+                for (let i = 0; i < question.length; i++) {
+                    const input = question[i].input.split("$.$")
+                    let items = {
+                        _id: question[i]._id,
+                        title: question[i].title, 
+                        status: question[i].status,
+                        rank: question[i].rank,
+                        unit: question[i].unit,
+                        number: question[i].number,
+                        result: testCase.repeat(input.length),
+                        finished: question[i].finished
+                    }
+                    item.push(items)
                 }
-                item.push(items)
+            } else {
+                return {notHave: "Not have any question!!!!!"};
             }
         }
         item.sort( compareItem )
