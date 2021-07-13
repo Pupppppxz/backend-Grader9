@@ -6,9 +6,8 @@ const checkUser = async (id) => {
 }
 
 module.exports = async function getFinishSubmissionCodeService(qId) {
-    const code = await SubmitCodeModel.find({questionId: qId, status: 2}).select(['code','createdAt','userId','status']).limit(8)
+    const code = await SubmitCodeModel.find({questionId: qId, status: 2}).select(['code','createdAt','userId','status']).limit(5)
     let items = []
-    const count = 0
     for(i = 0; i < code.length; i++) {
         const { group } = await checkUser(code[i].userId)
         if(group) {
@@ -20,7 +19,6 @@ module.exports = async function getFinishSubmissionCodeService(qId) {
                     time: time.utcOffset('+0700').format('l') + " " + time.utcOffset('+0700').format('LTS')
                 }
                 items.push(item)
-                count += 1
             }
         }
     }
