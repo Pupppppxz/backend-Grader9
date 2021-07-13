@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs')
 const { validatorRegister } = require('../../validation')
 const { UserModel } = require('../../models')
 const sha256 = require('sha256')
+const { decrypt } = require('../../middleware/encode')
 
 module.exports = function registerUser(req, res) {
     const p1 = decrypt(req.query.p1)
@@ -38,7 +39,9 @@ module.exports = function registerUser(req, res) {
                     })
                 }
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                return {gg: "Yiam bad"}
+            })
         } else {
             return res.status(400).json({Hello: "GG!"})
         }
