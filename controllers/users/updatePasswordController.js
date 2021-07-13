@@ -2,6 +2,7 @@ const { updatePasswordService } = require('../../services/users')
 const { validatePassword } = require('../../validation')
 const bcrypt = require('bcryptjs')
 const { UserModel } = require('../../models')
+const jwt = require('jsonwebtoken')
 
 module.exports = async function updatePasswordController(req, res) {
   try {
@@ -29,10 +30,11 @@ module.exports = async function updatePasswordController(req, res) {
           await updatePasswordService(req.params.id, hash)
           return res.status(200).json({updateSuccess: "Success update password!"})
         } else {
-          return res.status(401).json({IncorrectOldPassword: "Incorrect password"})
+          return res.status(400).json({IncorrectOldPassword: "Incorrect password"})
         }
       }
     } else {
+      jwt.destroy(req.token)
       return res.status(400).json({Hello: "Hello world!"})
     }
   } catch (err) {
