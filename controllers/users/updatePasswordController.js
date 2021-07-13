@@ -22,7 +22,7 @@ module.exports = async function updatePasswordController(req, res) {
         if(validPassword) {
           const { err, isValid } = await validatePassword(data)
           if(!isValid){
-            return res.status(401).json(err)
+            return res.status(400).json(err)
           }
           const salt = await bcrypt.genSalt(10)
           const hash = await bcrypt.hash(newPassword, salt)
