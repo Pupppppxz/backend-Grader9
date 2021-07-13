@@ -3,67 +3,67 @@ const mongoose = require('mongoose')
 const QuestionSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: true
+        require: true
     },
     input: {
         type: String,
-        required: true
+        require: true
     },
     output: {
         type: String,
-        required: true
+        require: true
     },
     chaya: {
         type: String,
-        required: true
+        require: true
     },
     unit: {
         type: String,
-        required: true
+        require: true
     },
     question: {
         type: String,
-        required: true
+        require: true
     },
     detail: {
         type: String,
-        required: true
+        require: true
     },
     linkPDF: {
         type: String,
-        required: true
+        require: true
     },
     str_input_1: {
         type: String,
-        required: true
+        require: true
     },
     str_output_1: {
         type: String,
-        required: true
+        require: true
     },
     str_input_2: {
         type: String,
-        required: true
+        require: true
     },
     str_output_2: {
         type: String,
-        required: true
+        require: true
     },
     str_input_3: {
         type: String,
-        required: true
+        require: true
     },
     str_output_3: {
         type: String,
-        required: true
+        require: true
     },
     rank: {
         type: Number,
-        required: true
+        require: true
     },
     number: {
         type: Number,
-        required: true
+        require: true
     },
     status: {
         type: Number,
@@ -71,11 +71,11 @@ const QuestionSchema = new mongoose.Schema({
     },
     q_input: {
         type: String,
-        required: true
+        require: true
     },
     q_output: {
         type: String,
-        required: true
+        require: true
     },
     finished: {
         type: Number,
