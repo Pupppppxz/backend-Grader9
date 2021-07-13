@@ -1,4 +1,5 @@
 const { getQuestionByIdService } = require('../../services/questions')
+const { checkUserExistService } = require('../../services/users')
 
 module.exports = async function getQuestionByIdController(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*')

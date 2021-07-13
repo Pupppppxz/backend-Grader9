@@ -1,5 +1,5 @@
-const {updatePasswordService} = require('../../services/users')
-const {validatePassword} = require('../../validation')
+const { updatePasswordService } = require('../../services/users')
+const { validatePassword } = require('../../validation')
 const bcrypt = require('bcryptjs')
 const { UserModel } = require('../../models')
 
