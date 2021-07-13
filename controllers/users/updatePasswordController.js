@@ -35,7 +35,7 @@ module.exports = async function updatePasswordController(req, res) {
       }
     } else {
       jwt.destroy(req.token)
-      return res.status(400).json({Hello: "Hello world!"})
+      return res.status(401).json({Hello: "Hello world!"})
     }
   } catch (err) {
     return res.status(400).json({Hello: "Hello world!"})
