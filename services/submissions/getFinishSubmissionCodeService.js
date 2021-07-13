@@ -6,18 +6,21 @@ const checkUser = async (id) => {
 }
 
 module.exports = async function getFinishSubmissionCodeService(qId) {
-    const code = await SubmitCodeModel.find({questionId: qId, status: 2}).select(['code','createdAt','userId']).limit(5)
+    const code = await SubmitCodeModel.find({questionId: qId, status: 2}).select(['code','createdAt','userId','status']).limit(5)
     let items = []
+    console.log(code)
     for(i = 0; i < code.length; i++) {
         const { group } = await checkUser(code[i].userId)
-        if(group < 5) {
-            let time = moment(code[i].createdAt)
-            let item = {
-                code: code[i].code,
-                status: code[i].status,
-                time: time.utcOffset('+0700').format('l') + " " + time.utcOffset('+0700').format('LTS')
+        if(group) {
+            if(group < 5) {
+                let time = moment(code[i].createdAt)
+                let item = {
+                    code: code[i].code,
+                    status: code[i].status,
+                    time: time.utcOffset('+0700').format('l') + " " + time.utcOffset('+0700').format('LTS')
+                }
+                items.push(item)
             }
-            items.push(item)
         }
     }
     return items

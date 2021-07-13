@@ -3,11 +3,13 @@ const { validatorRegister } = require('../../validation')
 const { UserModel } = require('../../models')
 const sha256 = require('sha256')
 const { decrypt } = require('../../middleware/encode')
+const dotenv = require('dotenv')
+dotenv.config()
 
 module.exports = function registerUser(req, res) {
     const p1 = decrypt(req.query.p1)
     try {
-        if(p1 === process.env.A_PASS && req.headers.ggNewPassword === process.env.CONFIRM) {
+        if(p1 == process.env.A_PASS && req.query.p2 == process.env.CONFIRM) {
             const { err, isValid } = validatorRegister(req.body)
 
             if (!isValid) {
@@ -40,7 +42,7 @@ module.exports = function registerUser(req, res) {
                 }
             })
             .catch(err => {
-                return {gg: "Yiam bad"}
+                return res.status(400).json({gg: "Yiam bad"})
             })
         } else {
             return res.status(400).json({Hello: "GG!"})

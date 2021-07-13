@@ -10,10 +10,10 @@ module.exports = async function getFinishSubmissionCodeController(req, res) {
         const check = await checkUserExistService(req.user.id)
         if(check === true) {
             if(!req.query.questionId) {
-            return res.status(400).json({Error: "Hello world!"})
-        }
-        const code = await getFinishSubmissionCodeService(req.query.questionId)
-        return res.send(code)
+                return res.status(400).json({Error: "Hello world!"})
+            }
+            const code = await getFinishSubmissionCodeService(req.query.questionId)
+            return res.send(code)
         } else {
             return res.status(401).json({Error: "Hello gg"})
         }
