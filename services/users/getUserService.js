@@ -27,25 +27,33 @@ const checkExist = async function(userId) {
 }
 
 module.exports = async function getUserService(id) {
-    const [exist, ranking, getUser] = await Promise.all([
-        checkExist(id),
-        getUserRankings(id),
-        UserModel.findOne({_id: id})
-    ])
-    const check = (exist === true ? ranking : "ไม่มีอันดับ")
-    const progress = await getProgression(getUser.finished)
-    const user = {
-        nickName: getUser.nickName,
-        username: getUser.username,
-        userStatus: getUser.userStatus,
-        hash: getUser.hash,
-        score: getUser.score,
-        finished: getUser.finished,
-        profilePicture: getUser.profilePicture,
-        userRank: check,
-        commit: getUser.commit,
-        progress: progress,
-        group: getUser.group
+    try {
+        const [exist, ranking, getUser] = await Promise.all([
+            checkExist(id),
+            getUserRankings(id),
+            UserModel.findOne({_id: id})
+        ])
+        if(getUser) {
+            const check = (exist === true ? ranking : "ไม่มีอันดับ")
+            const progress = await getProgression(getUser.finished)
+            const user = {
+                nickName: getUser.nickName,
+                username: getUser.username,
+                userStatus: getUser.userStatus,
+                hash: getUser.hash,
+                score: getUser.score,
+                finished: getUser.finished,
+                profilePicture: getUser.profilePicture,
+                userRank: check,
+                commit: getUser.commit,
+                progress: progress,
+                group: getUser.group
+            }
+            return user
+        } else {
+            return {cannotGet: "cannot get"}
+        }
+    } catch (err) {
+        return {Error: "Error!"}
     }
-    return user
 }

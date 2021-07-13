@@ -6,7 +6,7 @@ const checkUser = async (id) => {
 }
 
 module.exports = async function getFinishSubmissionCodeService(qId) {
-    const code = await SubmitCodeModel.find({questionId: qId, status: 2}).select(['code','createdAt']).limit(5)
+    const code = await SubmitCodeModel.find({questionId: qId, status: 2}).select(['code','createdAt','userId']).limit(5)
     let items = []
     for(i = 0; i < code.length; i++) {
         const { group } = await checkUser(code[i].userId)

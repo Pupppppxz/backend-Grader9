@@ -7,6 +7,7 @@ const updatePasswordController = require('./updatePasswordController')
 const profileUploadController = require('./profileUploadController')
 const updateGroupController = require('./updateGroupController')
 const checkUpdatedController = require('./checkUpdatedController')
+const destroyTokenController = require('./destroyTokenController')
 
 module.exports = {
     updateUserController,
@@ -17,5 +18,6 @@ module.exports = {
     updatePasswordController,
     profileUploadController,
     updateGroupController,
-    checkUpdatedController
+    checkUpdatedController,
+    destroyTokenController
 }

@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 
 module.exports = async function checkUpdatedController(req, res) {
     const checked = await check(req.query.id)
-    const token = req.query.jwt
+    const token = req.headers.authorization.split(" ")[1]
     if(checked === true) {
         jwt.destroy(token)
         return res.send(200).json({status: 2})

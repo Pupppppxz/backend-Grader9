@@ -10,6 +10,7 @@ const profileUploadService = require('./profileUploadService')
 const updateGroupService = require('./updateGroupService')
 const getCommitTableService = require('./getCommitTableService')
 const getUserScoreService = require('./getUserScoreService')
+const checkUserExistService = require('./checkUserExistService')
 
 module.exports = {
     loginService,
@@ -23,5 +24,6 @@ module.exports = {
     profileUploadService,
     updateGroupService,
     getCommitTableService,
-    getUserScoreService
+    getUserScoreService,
+    checkUserExistService
 }

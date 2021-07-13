@@ -9,7 +9,7 @@ const checkJwt = require('./middleware/checkJwt')
 
 router.post('/login', (req, res) => services.loginService(req, res))
 router.post('/register', (req, res) => services.registerService(req, res))
-// router.put('/user/:id', checkJwt, (req, res) => userController.updateUserController(req, res))
+router.put('/user/:id', checkJwt, (req, res) => userController.updateUserController(req, res))
 router.put('/password/:id', checkJwt, (req, res) => userController.updatePasswordController(req, res))
 // router.get('/all-users', checkJwt, (req, res) => userController.getUsersController(req, res))
 router.get('/user', checkJwt, (req, res) => userController.getUserController(req, res))
@@ -17,6 +17,7 @@ router.put('/update-group', checkJwt, (req, res) => userController.updateGroupCo
 router.get('/score-board/:status', checkJwt, (req, res) => userController.getScoreBoardController(req, res))
 router.delete('/del-user', checkJwt, (req, res) => userController.deleteUserController(req, res))
 router.delete('/check-updated', checkJwt, (req, res) => userController.checkUpdatedController(req, res))
+router.post('/destroy-token', checkJwt, (req, res) => userController.destroyTokenController(req, res))
 
 router.post('/add-question', (req, res) => questionController.addQuestionController(req, res))
 router.put('/update-question/:id', (req, res) => questionController.editQuestionController(req, res))

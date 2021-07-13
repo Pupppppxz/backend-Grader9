@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const {validatorLogin} = require('../../validation') 
+const { validatorLogin } = require('../../validation') 
 const { UserModel } = require('../../models')
 const { setUpdate } = require('../../middleware/updated')
 const dotenv = require('dotenv')
