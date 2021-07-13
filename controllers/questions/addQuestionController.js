@@ -13,7 +13,7 @@ module.exports = async function addQuestionController(req, res) {
     const check = await QuestionModel.findOne({number: req.body.number})
     if(check === null) {
       const add = await addQuestionService(req.body)
-      return res.send(add)
+      return res.send(add._id)
     } else {
       return res.send(401).json({questionExist: "Question already exists!"})
     }
