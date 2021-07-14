@@ -34,5 +34,6 @@ router.get('/history', checkJwt, (req, res) => submissionController.getHistoryCo
 router.get('/leader', (req, res) => adminController.getLeaderController(req, res))
 router.put('/asefefd', (req, res) => adminController.forgotPasswordController(req, res))
 router.put('/uhsuhfue', (req, res) => adminController.autoLogoutController(req, res))
+router.post('/drfsefef', (req, res) => adminController.updateAllUserDetailController(req, res))
 
 module.exports = router
