@@ -1,3 +1,4 @@
+const { constants } = require('fs')
 const { UserModel } = require('../../models')
 
 const compareScore = function(a, b) {
@@ -18,5 +19,6 @@ module.exports = async function getScoreBoardService(status) {
     const board = scoreBoard.filter(user => user.group < 5)
     const realBoard = board.sort( compareScore )
     const realRealBoard = realBoard.splice(0,3)
+    realRealBoard.sort(() => Math.random() < 0.5 ? 1 : -1)
     return realRealBoard
 }
