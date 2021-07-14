@@ -20,36 +20,37 @@ module.exports = async function loginUser(req, res) {
         
         const user = await UserModel.findOne({username: username})
         if(user){
-            const isMatch = bcrypt.compare(password, user.password)
-            if(isMatch){
-                await setUpdate(user._id, false)
-                const payload = {
-                    id: user._id,
-                    nickName: user.nickName
-                }
-                
-                jwt.sign(
-                    payload,
-                    process.env.SECRET_KEY,
-                    {
-                        expiresIn: month 
-                    },
-                    (err, token) => {
-                        res.json({
-                            success: true,
-                            token: "Bearer " + token,
-                            status: user.userStatus,
-                            username: user.username,
-                            nickName: user.nickName,
-                            id: user._id
-                        })
+            bcrypt.compare(password, user.password)
+            .then((isMatch) => {
+                if(isMatch){
+                    await setUpdate(user._id, false)
+                    const payload = {
+                        id: user._id,
+                        nickName: user.nickName
                     }
-                )
-            } else {
-                return res
-                    .status(400)
-                    .json({error: "Error3!"})
-            }
+                    
+                    jwt.sign(
+                        payload,
+                        process.env.SECRET_KEY,
+                        {
+                            expiresIn: month 
+                        },
+                        (err, token) => {
+                            res.json({
+                                success: true,
+                                token: "Bearer " + token,
+                                status: user.userStatus,
+                                username: user.username,
+                                nickName: user.nickName,
+                                id: user._id
+                            })
+                        }
+                    )
+                } else {
+                    return res.status(400).json({passwordInCorrect: "Password incorrect!"})
+                }
+            })
+            .catch (err => console.log(err))
         } else {
             return res.status(400).json({error: "Error4!"})
         }
