@@ -22,7 +22,7 @@ module.exports = async function fetchSubmissionService(data){
     const status = Number(data.status)
     const rank = data.rank 
     const number = Number(data.number)
-    const confirm = data.confirm
+    const confirm = data.confirm || null
 
     if(isValidObjectId(userId) === true){
         UserModel.findOne({_id: data.userId})
