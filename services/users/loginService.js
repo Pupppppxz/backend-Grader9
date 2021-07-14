@@ -22,12 +22,12 @@ module.exports = async function loginUser(req, res) {
             .json({error: "Error2!"})
         }
         
-        UserModel.findOne({username: username})
-        .then(user => {
+        const user = await UserModel.findOne({username: username})
+        await setUpdate(user._id, false)
+        if(user){
             bcrypt.compare(password, user.password)
             .then((isMatch) => {
                 if(isMatch){
-                    await setUpdate(user._id, false)
                     const payload = {
                         id: user._id,
                         nickName: user.nickName
@@ -57,10 +57,9 @@ module.exports = async function loginUser(req, res) {
             .catch(err =>{
                 return res.status(400).json({error: "Error5!"})
             })
-        })
-        .catch(err =>{
+        } else {
             return res.status(400).json({error: "Error5!"})
-        })
+        }
     } catch (err) {
         return res.status(400).json({error: "Error5!"})
     }
