@@ -1,4 +1,4 @@
-const { getFinishSubmissionCodeService } = require('../../services/submissions')
+const { getFinishSubmissionCodeService, getSubmissionService } = require('../../services/submissions')
 const { checkUserExistService } = require('../../services/users')
 
 module.exports = async function getFinishSubmissionCodeController(req, res) {
@@ -9,11 +9,16 @@ module.exports = async function getFinishSubmissionCodeController(req, res) {
     try {
         const check = await checkUserExistService(req.user.id)
         if(check === true) {
-            if(!req.query.questionId) {
-                return res.status(400).json({Error: "Hello world!"})
+            const getSubmit = await getSubmissionService(req.user.id)
+            if(getSubmit.length > 0) {
+                if(!req.query.questionId) {
+                    return res.status(400).json({Error: "Hello world!"})
+                }
+                const code = await getFinishSubmissionCodeService(req.query.questionId)
+                return res.send(code)   
+            } else {
+                return res.status(400).json({Error: "Cannot get!"})
             }
-            const code = await getFinishSubmissionCodeService(req.query.questionId)
-            return res.send(code)
         } else {
             return res.status(401).json({Error: "Hello gg"})
         }

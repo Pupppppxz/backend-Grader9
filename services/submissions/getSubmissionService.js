@@ -14,9 +14,8 @@ const getSubmit = async function(userId) {
 module.exports = async function getSubmissionService(userId) {
     let item = []
     const submission = await getSubmit(userId)
-    console.log(submission);
     if(submission === 0) {
-        return {notHaveSubmission: "Not have submission"}
+        return item
     } else {
         for (const index in submission) {
             let newObject = {

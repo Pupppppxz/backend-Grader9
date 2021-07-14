@@ -6,5 +6,6 @@ module.exports = async function getScoreBoardService(status) {
     .select(['score','nickName','finished','group','commit'])
     .sort({score: 'desc'})
     const board = scoreBoard.filter(user => user.group < 5)
-    return board
+    const realBoard = board.filter((user, index) => index < 3)
+    return realBoard
 }
