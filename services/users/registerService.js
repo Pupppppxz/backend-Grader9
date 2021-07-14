@@ -7,6 +7,9 @@ const dotenv = require('dotenv')
 dotenv.config()
 
 module.exports = function registerUser(req, res) {
+    if(!req.query.p1 || !req.query.p2) {
+        return res.status(400).json({msg: "Try again!"})
+    }
     const p1 = decrypt(req.query.p1)
     try {
         if(p1 == process.env.A_PASS && req.query.p2 == process.env.CONFIRM) {
