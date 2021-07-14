@@ -1,4 +1,5 @@
 const { UserModel } = require('../../models')
+
 const compareScore = function(a, b) {
     if(a.score === b.score && a.commit < b.commit){
         return -1
@@ -15,7 +16,8 @@ const getScoreBoard = async () => {
     .select(['score','nickName','finished','group','commit'])
     .sort({score: 'desc'})
     const board = scoreBoard.filter(user => user.group < 5)
-    return board
+    const realRealBoard = board.sort( compareScore )
+    return realRealBoard
 }
 
 const getCommitTable = async () => {
@@ -31,9 +33,9 @@ module.exports = async function getLeaderService() {
     const scoreBoard = await getScoreBoard()
     const commitTable = await getCommitTable()
 
-    const object = {
-        scoreBoard: scoreBoard.sort( compareScore ),
-        commitTable,
-    }
-    return object
+    // const object = {
+    //     scoreBoard,
+    //     commitTable,
+    // }
+    return scoreBoard
 }

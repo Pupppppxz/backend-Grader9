@@ -46,7 +46,7 @@ module.exports = async function getHistoryService(userId) {
                 items.push(item)
             }
             if(items.length > 20) {
-                items.splice(20, items.length - 20)
+                items.splice(0, 20)
             }
             return items
         }
