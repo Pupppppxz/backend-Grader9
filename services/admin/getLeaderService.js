@@ -1,17 +1,6 @@
-const { getScoreBoardService } = require('../users')
-
-const compareItem = function(a, b) {
-    if(a.commit > b.commit){
-        return -1
-    }
-    if(a.commit < b.commit){
-        return 1
-    }
-    return 0
-}
-
+const { UserModel } = require('../../models')
 const compareScore = function(a, b) {
-    if(a.score > b.score){
+    if(a.score === b.score && a.commit < b.commit){
         return -1
     }
     if(a.score < b.score){
@@ -20,13 +9,31 @@ const compareScore = function(a, b) {
     return 0
 }
 
+const getScoreBoard = async () => {
+    const scoreBoard = await UserModel
+    .find({userStatus: "user"}, {'_id': false})
+    .select(['score','nickName','finished','group','commit'])
+    .sort({score: 'desc'})
+    const board = scoreBoard.filter(user => user.group < 5)
+    return board
+}
+
+const getCommitTable = async () => {
+    const scoreBoard = await UserModel
+    .find({userStatus: "user"}, {'_id': false})
+    .select(['score','nickName','finished','group','commit'])
+    .sort({commit: 'desc'})
+    const board = scoreBoard.filter(user => user.group < 5)
+    return board
+}
+
 module.exports = async function getLeaderService() {
-    const scoreBoard = await getScoreBoardService("user")
-    const commitTable = scoreBoard.sort( compareItem )
+    const scoreBoard = await getScoreBoard()
+    const commitTable = await getCommitTable()
 
     const object = {
         scoreBoard: scoreBoard.sort( compareScore ),
-        commitTable: commitTable
+        commitTable,
     }
     return object
 }
