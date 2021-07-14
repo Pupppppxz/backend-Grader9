@@ -22,6 +22,7 @@ module.exports = async function fetchSubmissionService(data){
     const status = Number(data.status)
     const rank = data.rank 
     const number = Number(data.number)
+    const confirm = data.confirm
 
     if(isValidObjectId(userId) === true){
         UserModel.findOne({_id: data.userId})
@@ -33,28 +34,33 @@ module.exports = async function fetchSubmissionService(data){
     } else {
         return {InvalidUserError: "Invalid userId"}
     }
-    try {
-        const [oldSubmit, checkExist, totalScore, group] = await Promise.all([
-            getOldSubmission(userId, questionId), 
-            checkSubmissionExistService(userId, questionId), 
-            getScoreByQuestionService(result, rank),
-            getUserFunc(userId)
-        ])
-        if(checkExist === true) {
-            console.log("S1");
-            await updateSubmissionService(userId, questionId, code, result, status, totalScore, oldSubmit.score, oldSubmit.status, group)
-        } else if (checkExist === false) {
-            console.log("S2");
-            await Promise.all([
-                createSubmissionService(userId, questionId, status, result, totalScore, number, group),
-                insertSubmissionCodeService(userId, questionId, code, status)
+    
+    if(confirm === process.env.CONFIRM) {
+        try {
+            const [oldSubmit, checkExist, totalScore, group] = await Promise.all([
+                getOldSubmission(userId, questionId), 
+                checkSubmissionExistService(userId, questionId), 
+                getScoreByQuestionService(result, rank),
+                getUserFunc(userId)
             ])
+            if(checkExist === true) {
+                console.log("S1");
+                await updateSubmissionService(userId, questionId, code, result, status, totalScore, oldSubmit.score, oldSubmit.status, group)
+            } else if (checkExist === false) {
+                console.log("S2");
+                await Promise.all([
+                    createSubmissionService(userId, questionId, status, result, totalScore, number, group),
+                    insertSubmissionCodeService(userId, questionId, code, status)
+                ])
+            }
+            await addHistoryService(userId, questionId, status, totalScore, result)
+        } catch (err) {
+            console.log(err)
+        } finally {
+            await updateUserCommitService(userId)
+            return data
         }
-        await addHistoryService(userId, questionId, status, totalScore, result)
-    } catch (err) {
-        console.log(err)
-    } finally {
-        await updateUserCommitService(userId)
-        return data
+    } else {
+        return {Error: "cannot process!"}
     }
 }
