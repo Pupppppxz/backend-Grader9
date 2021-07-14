@@ -47,7 +47,7 @@ module.exports = async function fetchSubmissionService(data){
             console.log("S2");
             await Promise.all([
                 createSubmissionService(userId, questionId, status, result, totalScore, number, group),
-                insertSubmissionCodeService(userId, questionId, code, status, result)
+                insertSubmissionCodeService(userId, questionId, code, status)
             ])
         }
         await addHistoryService(userId, questionId, status, totalScore, result)
