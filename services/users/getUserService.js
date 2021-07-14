@@ -10,13 +10,16 @@ const getUserRankings = async function(id) {
     return ranking + 1
 }
 
-const getProgression = async function(passed) {
-    const allQuestions = await QuestionModel.find({})
-    const questionLength = allQuestions.length
-    const progress = Number(passed) * 100 / Number(questionLength)
+const getProgression = async function(passed, qLength) {
+    const progress = Number(passed) * 100 / Number(qLength)
     const realProgress = progress.toFixed(2)
     return realProgress
 }
+
+const getQuestionsLength = async function() {
+    const qLength = await QuestionModel.find({})
+    return qLength.length
+} 
 
 const checkExist = async function(userId) {
     const check = await SubmitModel.findOne({userId: userId})
@@ -26,16 +29,27 @@ const checkExist = async function(userId) {
     return true
 }
 
+const updateFinished = async function(id, qLength) {
+    const user = await UserModel.findOneAndUpdate({_id: id},{finished: qLength})
+    return user
+}
+
 module.exports = async function getUserService(id) {
     try {
-        const [exist, ranking, getUser] = await Promise.all([
+        const [exist, ranking, getUser, qLength] = await Promise.all([
             checkExist(id),
             getUserRankings(id),
-            UserModel.findOne({_id: id})
+            UserModel.findOne({_id: id}),
+            getQuestionsLength()
         ])
         if(getUser) {
             const check = (exist === true ? ranking : "ไม่มีอันดับ")
-            const progress = await getProgression(getUser.finished)
+            let progress = await getProgression(getUser.finished, qLength)
+            if(qLength < getUser.finished) {
+                await updateFinished(getUser._id, qLength)
+                progress = 100
+                progress.toFixed(2)
+            }
             const user = {
                 nickName: getUser.nickName,
                 username: getUser.username,

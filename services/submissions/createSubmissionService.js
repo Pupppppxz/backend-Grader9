@@ -17,8 +17,10 @@ module.exports = async function createSubmissionService(userId, questionId, stat
                     addSuccessSubmissionService(questionId, "plus"),
                     addFinishedSubmissionService(userId, "plus")
                 ])
-            } else {
-                addFinishedSubmissionService(userId, "plus")
+            } else if (status === 2 && group > 4) {
+                await Promise.all([
+                    addFinishedSubmissionService(userId, "plus")
+                ])
             }
             await Promise.all([
                 addScoreToUserService(userId, totalScore),

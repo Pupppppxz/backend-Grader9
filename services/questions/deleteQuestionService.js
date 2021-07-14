@@ -36,9 +36,9 @@ module.exports = async function deleteQuestionService(id) {
         if(submit !== 0) {
             await deleteQues
             for(let i = 0; i < submit.length; i++){
-                if(submit[i].score !== 0){
+                if(submit[i].score > 0){
                     const user = await UserModel.findOne({_id: submit[i].userId})
-                    if(user) {
+                    if(user.length > 0) {
                         await Promise.all([
                             updateUserScoreService(submit[i].userId, 0, submit[i].score, "minus"),
                             addFinishedSubmissionService(submit[i].userId, "minus")
