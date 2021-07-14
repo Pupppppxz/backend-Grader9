@@ -4,7 +4,7 @@ module.exports = async function getScoreByQuestionService(result, rank) {
         return item === "P"
     })
     const total = totalPassed.length
-    let score = total * 10 * rank
+    let score = total * 9 * rank
     if(score < 0) {
         return 0
     } else {
