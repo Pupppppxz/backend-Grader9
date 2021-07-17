@@ -21,8 +21,9 @@ module.exports = async function getQuestionByIdService(userId, questionId) {
     try {
         const [question, submit] = await Promise.all([
             getQuestion(questionId),
-            getSubmit(userId, questionId),
+            getSubmit(userId, questionId)
         ])
+        console.log(submitCode)
         const testCase = "-"
         let item = []
         if(submit !== 0) {
