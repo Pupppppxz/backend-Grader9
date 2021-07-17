@@ -33,9 +33,9 @@ module.exports = async function getLeaderService() {
     const scoreBoard = await getScoreBoard()
     const commitTable = await getCommitTable()
 
-    // const object = {
-    //     scoreBoard,
-    //     commitTable,
-    // }
-    return scoreBoard
+    const object = {
+        scoreBoard,
+        commitTable,
+    }
+    return object
 }

@@ -18,7 +18,12 @@ module.exports = async function fetchSubmissionService(data){
     const result = data.result
     const questionId = data.questionId
     const userId = data.userId
-    const code = data.code
+    let code
+    if(data.code.length === 0) {
+        code = `printf("Don't send empty code again, pls")`
+    } else {
+        code = data.code
+    }
     const status = Number(data.status)
     const rank = data.rank 
     const number = Number(data.number)
@@ -57,7 +62,7 @@ module.exports = async function fetchSubmissionService(data){
         } catch (err) {
             console.log(err)
         } finally {
-            await updateUserCommitService(userId)
+            // await updateUserCommitService(userId)
             return data
         }
     } else {

@@ -6,6 +6,8 @@ const submissionController = require('./controllers/submissions')
 const adminController = require('./controllers/admin')
 const services = require('./services/users')
 const checkJwt = require('./middleware/checkJwt')
+const cors = require('cors')
+const { corsOptions } = require('./middleware/corsOption')
 
 router.post('/login', (req, res) => services.loginService(req, res))
 router.post('/register', (req, res) => services.registerService(req, res))
@@ -29,11 +31,12 @@ router.get('/sub-code', checkJwt, (req, res) => submissionController.getSubmissi
 router.get('/finish-sub', checkJwt, (req, res) => submissionController.getFinishSubmissionCodeController(req, res))
 router.get('/submission', checkJwt, (req, res) => submissionController.getSubmissionController(req, res))
 router.post('/submit', (req, res) => submissionController.fetchSubmissionController(req, res))
-router.get('/history', checkJwt, (req, res) => submissionController.getHistoryController(req, res))
+router.get('/history', checkJwt, cors(corsOptions), (req, res) => submissionController.getHistoryController(req, res))
 
 router.get('/leader', (req, res) => adminController.getLeaderController(req, res))
 router.put('/asefefd', (req, res) => adminController.forgotPasswordController(req, res))
 router.put('/uhsuhfue', (req, res) => adminController.autoLogoutController(req, res))
 router.post('/drfsefef', (req, res) => adminController.updateAllUserDetailController(req, res))
+router.post('/deesef', (req, res) => adminController.updateAllSubmitController(req, res))
 
 module.exports = router

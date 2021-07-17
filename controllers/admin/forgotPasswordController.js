@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs')
 const { decrypt } = require('../../middleware/encode')
 const { UserModel } = require('../../models')
+const { updatePasswordService } = require('../../services/users')
 const sha256 = require('sha256')
 const dotenv = require('dotenv')
 dotenv.config()
@@ -15,6 +16,7 @@ module.exports = async function forgotPasswordController(req, res) {
             if(!user) {
                 return res.status(400).json({Hello: "Hello world!!!"})
             } else {
+                console.log("1")
                 const salt = await bcrypt.genSalt(10)
                 const hash = await bcrypt.hash(p2, salt)
                 await updatePasswordService(req.query.userId, hash)

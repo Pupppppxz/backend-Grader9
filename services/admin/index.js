@@ -4,6 +4,7 @@ const getAllQuestionService = require('./getAllQuestionService')
 const openQuestionService = require('./openQuestionService')
 const getLeaderService = require('./getLeaderService')
 const updateAllUserDetailService = require('./updateAllUserDetailService')
+const updateAllSubmitService = require('./updateAllSubmitService')
 
 module.exports = {
     checkQuestionService,
@@ -11,5 +12,6 @@ module.exports = {
     getAllQuestionService,
     openQuestionService,
     getLeaderService,
-    updateAllUserDetailService
+    updateAllUserDetailService,
+    updateAllSubmitService
 }
