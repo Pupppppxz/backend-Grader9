@@ -1,4 +1,9 @@
-const whitelist = ["https://www.ceboostup.com", "https://mostsecret.ceboostup.com"]
+const whitelist = [
+    "https://www.ceboostup.com", 
+    "https://mostsecret.ceboostup.com", 
+    "184.22.195.128",
+    "110.168.53.199"
+]
 
 const corsOptions = {
     origin: (origin, callback) => {
