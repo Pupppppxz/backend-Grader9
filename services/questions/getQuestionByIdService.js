@@ -23,7 +23,6 @@ module.exports = async function getQuestionByIdService(userId, questionId) {
             getQuestion(questionId),
             getSubmit(userId, questionId)
         ])
-        console.log(submitCode)
         const testCase = "-"
         let item = []
         if(submit !== 0) {
