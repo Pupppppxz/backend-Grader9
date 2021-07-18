@@ -62,7 +62,7 @@ module.exports = async function fetchSubmissionService(data){
         } catch (err) {
             console.log(err)
         } finally {
-            // await updateUserCommitService(userId)
+            await updateUserCommitService(userId)
             return data
         }
     } else {
