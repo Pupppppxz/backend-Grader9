@@ -1,4 +1,5 @@
 const { QuestionModel, SubmitModel } = require('../../models')
+const { getSubmissionCodeService } = require('../submissions')
 const moment = require('moment')
 
 const getQuestion = async function(id){
@@ -19,10 +20,12 @@ const getSubmit = async function(id, qId){
 
 module.exports = async function getQuestionByIdService(userId, questionId) {
     try {
-        const [question, submit] = await Promise.all([
+        const [question, submit, code] = await Promise.all([
             getQuestion(questionId),
-            getSubmit(userId, questionId)
+            getSubmit(userId, questionId),
+            getSubmissionCodeService(userId, questionId)
         ])
+        console.log(code.code)
         const testCase = "-"
         let item = []
         if(submit !== 0) {
@@ -49,6 +52,7 @@ module.exports = async function getQuestionByIdService(userId, questionId) {
                 result: submit.result, 
                 finished: question.finished,
                 time: time.utcOffset('+0700').format('l') + " " + time.utcOffset('+0700').format('LTS'),
+                code: code.code
             }
             item.push(items)
         } else {
@@ -74,6 +78,7 @@ module.exports = async function getQuestionByIdService(userId, questionId) {
                 number: question.number,
                 result: testCase.repeat(input.length),
                 finished: question.finished,
+                code: null
             }
             item.push(items)
         }
