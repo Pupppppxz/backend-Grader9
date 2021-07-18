@@ -37,6 +37,7 @@ module.exports = async function getHistoryService(userId) {
                 const { title } = await getQuestion(history[i].questionId)
                 const time = moment(history[i].updatedAt)
                 let item = {
+                    questionId: history[i].questionId,
                     title: title,
                     result: history[i].result,
                     score: history[i].score,
