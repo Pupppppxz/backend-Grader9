@@ -34,8 +34,8 @@ module.exports = async function getLeaderService() {
     const commitTable = await getCommitTable()
 
     const object = {
-        scoreBoard,
-        commitTable,
+        scoreBoard: scoreBoard,
+        commitTable: commitTable,
     }
     return object
 }
