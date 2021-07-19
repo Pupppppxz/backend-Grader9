@@ -4,36 +4,27 @@ const passport = require("passport")
 const routes = require('./routes')
 const cors = require('cors')
 const app = express()
+const { corsOptions } = require('./middleware/corsOption')
 const dotenv = require('dotenv')
 dotenv.config()
 
-app.use(cors())
+app.use(cors( corsOptions ))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use('/uploads', express.static('uploads'))
 
-mongoose.connect(`mongodb://localhost:27017/Boostup9_2`, 
-    {
-        useNewUrlParser: true, 
-        useUnifiedTopology: true,
-        useCreateIndex: true,
-        useFindAndModify: false
-    })
-    .then(() => console.log("success connect"))
-    .catch(err => console.log(err))
-
-// mongoose.Promise = global.Promise
-// mongoose.connect(process.env.MONGO_URL,{
-//     "auth": {"authSource":"admin"},
-//     "user": String(process.env.MONGO_USER),
-//     "pass": process.env.MONGO_PASS,
-//     useNewUrlParser: true, 
-//     useUnifiedTopology: true,
-//     useCreateIndex: true,
-//     useFindAndModify: false
-// }).then(() => {
-//     console.log(`Mongo connected to database`)
-// }).catch(err => console.log(err))
+mongoose.Promise = global.Promise
+mongoose.connect(process.env.MONGO_URL,{
+    "auth": {"authSource":"admin"},
+    "user": String(process.env.MONGO_USER),
+    "pass": process.env.MONGO_PASS,
+    useNewUrlParser: true, 
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+}).then(() => {
+    console.log(`Mongo connected to database`)
+}).catch(err => console.log(err))
 
 require('./config/passport')(passport)
 app.use(passport.initialize())

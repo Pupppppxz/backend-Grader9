@@ -7,7 +7,7 @@ module.exports = async function getSubmissionCodeService(uId, qId) {
             return code
         } else {
             const obj = {
-                code: `printf("Don't send empty code again, pls")`
+                code: `printf("Hello world")`
             }
             return obj
         }
