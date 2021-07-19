@@ -12,7 +12,6 @@ module.exports = async function getFinishSubmissionCodeController(req, res) {
         if(check === true) {
             const getSubmit = await getSubmissionService(req.user.id)
             const { group } = await UserModel.findOne({_id: req.user.id})
-            console.log( group );
             if(group === 6) {
                 const code = await getFinishSubmissionCodeService(req.query.questionId)
                 return res.send(code)  

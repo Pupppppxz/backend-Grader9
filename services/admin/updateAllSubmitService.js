@@ -29,23 +29,23 @@ module.exports = async function updateAllSubmitService() {
     
         for (let i = 0; i < submit.length; i++) {
             const check = await checkQuestion(submit[i].questionId)
-            console.log(i)
+            // console.log(i)
             if(check === 0) {
                 count = count + 1
-                console.log("gg", submit[i])
+                // console.log("gg", submit[i])
             }
         }
         
         for (let i = 0; i < code.length; i++) {
             const check = await checkQuestion(code[i].questionId)
-            console.log(i)
+            // console.log(i)
             if(check === 0) {
                 count1 = count1 + 1
-                console.log("gg", submit[i])
+                // console.log("gg", submit[i])
             }
         }
-        console.log("length1", submit.length)
-        console.log("length2", code.length)
+        // console.log("length1", submit.length)
+        // console.log("length2", code.length)
         const obj = {
             count,
             count1
