@@ -1,5 +1,15 @@
 const {UserModel, QuestionModel, SubmitModel} = require('../../models')
 
+const compareScore = function(a, b) {
+    if(a.score === b.score && a.commit < b.commit){
+        return -1
+    }
+    if(a.score < b.score){
+        return 1
+    }
+    return 0
+}
+
 const getUserRankings = async function(id) {
     let allUsers = []
     allUsers = await UserModel
@@ -7,7 +17,8 @@ const getUserRankings = async function(id) {
             .select(['score','_id','group'])
             .sort({score: 'desc'})
     let all = allUsers.filter(user => user.group < 5)
-    let ranking = all.findIndex(allUser => String(allUser._id) === id)
+    let all1 = all.sort( compareScore )
+    let ranking = all1.findIndex(allUser => String(allUser._id) === id)
     return ranking + 1
 }
 
