@@ -4,9 +4,10 @@ const getUserRankings = async function(id) {
     let allUsers = []
     allUsers = await UserModel
             .find({userStatus: "user"})
-            .select(['score','_id'])
+            .select(['score','_id','group'])
             .sort({score: 'desc'})
-    let ranking = allUsers.findIndex(allUser => String(allUser._id) === id)
+    let all = allUsers.filter(user => user.group < 5)
+    let ranking = all.findIndex(allUser => String(allUser._id) === id)
     return ranking + 1
 }
 
@@ -58,7 +59,7 @@ module.exports = async function getUserService(id) {
                 score: getUser.score,
                 finished: getUser.finished,
                 profilePicture: getUser.profilePicture,
-                userRank: check,
+                userRank: getUser.group < 5 ? check : 0,
                 commit: getUser.commit,
                 progress: progress,
                 group: getUser.group

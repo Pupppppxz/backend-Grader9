@@ -4,7 +4,6 @@ const passport = require("passport")
 const routes = require('./routes')
 const cors = require('cors')
 const app = express()
-const { corsOptions } = require('./middleware/corsOption')
 const dotenv = require('dotenv')
 dotenv.config()
 
