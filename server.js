@@ -8,7 +8,7 @@ const { corsOptions } = require('./middleware/corsOption')
 const dotenv = require('dotenv')
 dotenv.config()
 
-app.use(cors( corsOptions ))
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use('/uploads', express.static('uploads'))
