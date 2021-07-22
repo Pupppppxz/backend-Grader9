@@ -8,7 +8,7 @@ module.exports = async function getQuestionByIdController(req, res) {
     res.setHeader('Access-Control-Allow-Credentials', true)
     try {
         const check = await checkUserExistService(req.user.id)
-        if(check === true) {
+        if(check) {
             if(!req.params.userId || !req.params.questionId) {
                 return res.status(400).json({Error: "Hello world!"})
             }

@@ -8,7 +8,7 @@ module.exports = async function getHistoryController(req, res) {
     res.setHeader('Access-Control-Allow-Credentials', true)
     try {
         const check = await checkUserExistService(req.user.id)
-        if(check === true) {
+        if(check) {
             if(!req.query.id || req.user.id !== req.query.id) {
                 return res.status(401).json({Error: "Hello world!"})
             }

@@ -6,7 +6,7 @@ module.exports = async function getScoreBoardController(req, res) {
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type')
     res.setHeader('Access-Control-Allow-Credentials', true)
     const check = await checkUserExistService(req.user.id)
-    if(check === true) {
+    if(check) {
         if(!req.params.status) {
             return res.status(400).json({Error: "Hello world!"})
         }

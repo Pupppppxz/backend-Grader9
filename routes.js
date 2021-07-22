@@ -9,7 +9,7 @@ const checkJwt = require('./middleware/checkJwt')
 const cors = require('cors')
 const { corsOptions } = require('./middleware/corsOption')
 
-router.post('/login', cors(corsOptions), (req, res) => services.loginService(req, res))
+router.post('/login', (req, res) => services.loginService(req, res))
 router.post('/register', (req, res) => services.registerService(req, res))
 router.put('/user/:id', checkJwt, cors(corsOptions), (req, res) => userController.updateUserController(req, res))
 router.put('/password/:id', checkJwt, cors(corsOptions), (req, res) => userController.updatePasswordController(req, res))
